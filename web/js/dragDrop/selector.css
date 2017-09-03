@@ -1,0 +1,137 @@
+#fcbklist 
+{
+	border-color: #C1C1C1;
+	border-style:none solid solid;
+	border-width:medium 1px 1px;
+	height:300px;	
+	list-style-type:none;
+	margin:0pt;
+	overflow:auto;
+	padding:0pt;
+	z-index:1;
+        font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+        color:#000000;
+        line-height: 13px;
+        font-size: 11px;
+        text-align: left;
+}
+#filters {
+	border-bottom:1px solid #C1C1C1;
+	padding:7px 0pt 0pt;
+	zoom:1;
+        font-size:11px;
+	text-align:left;
+	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+        color:#000000;
+        line-height: 13px;
+}
+#filters .selections {
+	float:left;
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+}
+
+#filters .selections li.view_on {
+	background:#FFFFFF url(images/multi_selector_bg.gif) repeat-x scroll center top;	
+}
+#filters .selections li {
+	float:left;
+	padding:4px 7px;
+	text-align:center;
+	width:100px;
+        line-height:	13px;
+}
+#filters .selections li a{
+	color:#3B5998;
+	text-decoration:none;
+}
+#fcbklist li {
+	background-color:#F7F7F7;
+	border:1px solid #D8DFEA;
+	display:block;
+	float:left;
+	list-style-image:none;
+	list-style-type:none;
+	margin:2px;
+	padding:2px;	
+        line-height:13px;
+}
+#fcbklist .fcbklist_item 
+{
+	background-color:#FFFFFF;
+	clear:both;
+	position:relative;
+	height:50px;
+	overflow:hidden;
+}
+#fcbklist .itemover 
+{
+	background-color:#F7F7F7 !important;
+}
+#fcbklist .liselected 
+{
+	border:1px solid #B94A48 !important;
+	background-color:#F2DEDE !important;
+}
+#fcbklist .liselected.itemselectedVerde 
+{
+	border:1px solid #149525 !important;
+	background-color:#D7F8AC !important;
+}
+#fcbklist .liselected.itemselectedRojo 
+{
+	border:1px solid #B94A48 !important;
+	background-color:#F2DEDE !important;
+}
+#fcbklist .itemblockRojo 
+{
+	border:1px solid #B94A48 !important;
+	background-color:#F2DEDE !important;
+}
+#fcbklist .liselected.itemselectedAzul 
+{
+	border:1px solid #3A87AD !important;
+	background-color:#D9EDF7 !important;
+}
+#fcbklist .itemselected 
+{
+	background-color:#F2DEDE !important;
+	background-image: url(images/checked.png);
+	background-repeat:no-repeat;
+	background-position:right bottom;	
+}
+#fcbklist .itemselected.itemselectedRojo 
+{
+	background-color:#F2DEDE !important;
+	
+}
+#fcbklist .itemblockRojo 
+{
+	background-color:#F2DEDE !important;
+	
+}
+#fcbklist .itemselected.itemselectedVerde 
+{
+	background-color:#D7F8AC !important;
+	
+}
+#fcbklist .itemselected.itemselectedAzul 
+{
+	background-color:#D9EDF7 !important;
+	
+}
+
+#fcbklist strong {
+	color:#222222;
+	font-size:11px;	
+	margin-top:2px;
+	width:65px;
+        font-weight: bolder;
+}
+.clearer 
+{
+	clear:both;
+	height:1px;
+	font-size:1px;
+}

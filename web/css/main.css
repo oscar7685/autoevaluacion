@@ -1,0 +1,443 @@
+body {
+    padding-top: 60px;
+    /* padding-bottom: 40px;*/
+}
+
+
+.form-signin label{
+    margin-bottom: 2px;
+}
+.form-signin {
+    background: rgba(255, 255, 255, 0.75) url("images/bg_texture.png") repeat scroll 0 0;
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+   // background-color: rgba(255, 255, 255, 0.85) none repeat scroll 0 0;
+    box-shadow: 8px 8px 21px -3px rgba(0, 0, 0, 0.75);
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    margin-top: 80px;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin input[type="text"],
+.form-signin input[type="password"],
+.form-signin select{
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+
+.ui-layout-north {
+    /* Drop-Down */
+    bottom:		auto;
+    margin:		0;
+    padding-bottom: 30px;
+}
+
+.ui-layout-center{
+    overflow: auto;
+}
+.ui-layout-west{
+    padding-right: 0;
+}
+.inner-layout-north {
+    /* Drop-Down */
+    bottom:		auto;
+    margin:		0;
+
+}
+.ui-layout-pane2 { /* solo header */
+    background:	#FFF; 
+    /* <<<< ojo comentado por mi >>>>> */
+    /*border: 1px solid #BBB; */
+
+
+    /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
+       otherwise you may get double-scrollbars - on the pane AND on the content-div
+    */
+
+    padding: 0;
+    overflow:	auto;
+}
+
+.ui-layout-pane-west{
+    border-right: 1px solid #BBBBBB; 
+}
+.ui-layout-south hr{
+    margin-top: 0px;    
+}
+
+.nav-list li a:hover [class^="icon-"]:before, .nav-list li a:hover [class*=" icon-"]:before, .nav-list li.active a [class^="icon-"]:before {
+    font-size: 28px;
+    vertical-align: -3px;
+}
+
+.nav-list li{
+    height: 38px;
+    line-height: 32px;
+}
+.nav-header {
+    font-size: 12px;
+    line-height: 20px;
+}
+.nav-list li a [class^="icon-"], .nav-list li a [class*=" icon-"] {
+    font-size: 14px;
+    width: 32px;
+}
+.nav-list li [class^="icon-"], .nav-list li [class*=" icon-"] {
+    display: inline-block;
+    text-align: center;
+}
+.nav-list li a >i, .nav-list li a:hover >i{
+    color: #222222;
+}
+
+
+.action a:hover [class^="icon-"]:before, .action a:hover [class*=" icon-"]:before {
+    font-size: 28px;
+    vertical-align: -5px;
+}
+
+.action a [class^="icon-"], .action a [class*=" icon-"] {
+    font-size: 14px;
+    width: 32px;
+}
+.action [class^="icon-"], .action [class*=" icon-"] {
+    display: inline-block;
+    text-align: center;
+}
+
+.action  a, .action a:hover {
+    color: #222222;
+    -moz-text-blink: none;
+    -moz-text-decoration-line: none;
+    text-decoration: none;
+}
+.action  a {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    cursor: pointer;
+    display: inline;
+    height: 32px;
+    line-height: 32px;
+}
+.hero-unit{
+    padding: 10px 60px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+
+
+
+.barra a:hover [class^="icon-"]:before, .barra a:hover [class*=" icon-"]:before, .barra li.active a [class^="icon-"]:before {
+    font-size: 28px;
+    vertical-align: -2px;
+}
+
+.barra a [class^="icon-"], .barra a [class*=" icon-"] {
+    font-size: 14px;
+    width: 32px;
+}
+.navbar .barra > li > a {
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.barra [class^="icon-"], .barra [class*=" icon-"] {
+    display: inline-block;
+    text-align: center;
+}
+
+.barra  a, .barra a:hover {
+    color: #222222;
+    -moz-text-blink: none;
+    -moz-text-decoration-line: none;
+    text-decoration: none;
+}
+.barra  a {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    cursor: pointer;
+    display: inline;
+    height: 23px;
+    line-height: 23px;
+}
+
+
+
+#dancing-dots-text {
+    background: #FFFFFF;
+    font-family: georgia;
+    box-shadow: inset 0px 0px 30px rgba(0,0,0,0.2), 0px 0px 20px rgba(0,0,0,1);
+    background: #47a447;
+    border: 8px solid #FFFFFF;
+    width: 200px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 30px;
+    font-style: italic;
+    margin: 30px auto;
+    color: #FFFFFF;
+    position: fixed;
+    margin-left: -160px;
+    left: 50%;
+    top: 100px;
+}
+
+#dancing-dots-text span {
+    font-size: 60px; 
+    line-height: 10px;
+    text-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+}
+
+
+#footer {
+    bottom: 0;
+    color: #666666;
+    font-family: Helvetica,Arial,sans-serif;
+    height: 24px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+    font-size: 13px;
+    line-height: 18px;
+}
+#footer a {
+    color: #666666;
+    display: block;
+    float: left;
+    font-size: 11px;
+    line-height: 24px;
+    margin-bottom: 0;
+    margin-left: 15px;
+    margin-right: 0;
+    margin-top: 0;
+}
+.contenedor_footer {
+    background-position: left -90px;
+    right: 0;
+}
+.fondo_footer {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("images/footer.png");
+    background-origin: padding-box;
+    background-repeat: repeat-x;
+    background-size: auto auto;
+}
+.links {
+    float: left;
+    padding-bottom: 0;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 0;
+}
+div.dataTables_length label {
+    float: left;
+    text-align: left;
+}
+
+div.dataTables_length select {
+    width: 75px;
+}
+
+div.dataTables_filter label {
+    float: right;
+}
+
+div.dataTables_info {
+    padding-top: 8px;
+}
+
+div.dataTables_paginate {
+    float: right;
+    margin: 0;
+}
+
+table.table {
+    clear: both;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+}
+
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled {
+    cursor: pointer;
+    *cursor: hand;
+}
+
+table.table thead .sorting { background: url('../img/sort_both.png') no-repeat center right; }
+table.table thead .sorting_asc { background: url('../img/sort_asc.png') no-repeat center right; }
+table.table thead .sorting_desc { background: url('../img/sort_desc.png') no-repeat center right; }
+
+table.table thead .sorting_asc_disabled { background: url('../img/sort_asc_disabled.png') no-repeat center right; }
+table.table thead .sorting_desc_disabled { background: url('../img/sort_desc_disabled.png') no-repeat center right; }
+
+table.dataTable th:active {
+    outline: none;
+}
+
+/* Scrolling */
+div.dataTables_scrollHead table {
+    margin-bottom: 0 !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+div.dataTables_scrollHead table thead tr:last-child th:first-child,
+div.dataTables_scrollHead table thead tr:last-child td:first-child {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+div.dataTables_scrollBody table {
+    border-top: none;
+    margin-bottom: 0 !important;
+}
+
+div.dataTables_scrollBody tbody tr:first-child th,
+div.dataTables_scrollBody tbody tr:first-child td {
+    border-top: none;
+}
+
+div.dataTables_scrollFoot table {
+    border-top: none;
+}
+
+
+
+
+/*
+ * TableTools styles
+ */
+.table tbody tr.active td,
+.table tbody tr.active th {
+    background-color: #08C;
+    color: white;
+}
+
+.table tbody tr.active:hover td,
+.table tbody tr.active:hover th {
+    background-color: #0075b0 !important;
+}
+
+.table-striped tbody tr.active:nth-child(odd) td,
+.table-striped tbody tr.active:nth-child(odd) th {
+    background-color: #017ebc;
+}
+
+table.DTTT_selectable tbody tr {
+    cursor: pointer;
+    *cursor: hand;
+}
+
+div.DTTT .btn {
+    color: #333 !important;
+    font-size: 12px;
+}
+
+div.DTTT.btn-group{
+    margin-right: 30px;
+    margin-bottom: 10px;
+    float:right !important;    
+}
+div.DTTT .btn:hover {
+    text-decoration: none !important;
+}
+
+
+ul.DTTT_dropdown.dropdown-menu a {
+    color: #333 !important; /* needed only when demo_page.css is included */
+}
+
+ul.DTTT_dropdown.dropdown-menu li:hover a {
+    background-color: #0088cc;
+    color: white !important;
+}
+
+/* TableTools information display */
+div.DTTT_print_info.modal {
+    height: 150px;
+    margin-top: -75px;
+    text-align: center;
+}
+
+div.DTTT_print_info h6 {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 28px;
+    margin: 1em;
+}
+
+div.DTTT_print_info p {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+
+
+/*
+ * FixedColumns styles
+ */
+div.DTFC_LeftHeadWrapper table,
+div.DTFC_LeftFootWrapper table,
+table.DTFC_Cloned tr.even {
+    background-color: white;
+}
+
+div.DTFC_LeftHeadWrapper table {
+    margin-bottom: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+div.DTFC_LeftHeadWrapper table thead tr:last-child th:first-child,
+div.DTFC_LeftHeadWrapper table thead tr:last-child td:first-child {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+div.DTFC_LeftBodyWrapper table {
+    border-top: none;
+    margin-bottom: 0 !important;
+}
+
+div.DTFC_LeftBodyWrapper tbody tr:first-child th,
+div.DTFC_LeftBodyWrapper tbody tr:first-child td {
+    border-top: none;
+}
+
+div.DTFC_LeftFootWrapper table {
+    border-top: none;
+}
+.nav li + .nav-header{
+    margin-top: 0px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
