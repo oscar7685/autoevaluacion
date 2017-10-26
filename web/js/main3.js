@@ -49,7 +49,7 @@ $(function() {
             }); //fin post
 
         } else {
-            if (hash.indexOf("#responderEncuestaF") !== -1) {
+            if (hash === "#responderEncuestaF") {
                 var url3 = "/autoevaluacion/controladorF?action=";
                 url3 = url3.concat(hash.substring(1));
                 $("div.ui-layout-center").empty();

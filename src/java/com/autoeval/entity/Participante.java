@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -44,6 +45,18 @@ public class Participante implements Serializable {
     @Basic(optional = false)
     @Column(name = "idparticipante")
     private Integer idparticipante;
+    @Size(max = 500)
+    @Column(name = "nombre")
+    private String nombre;
+    @Size(max = 15)
+    @Column(name = "cedula")
+    private String cedula;
+    @Size(max = 500)
+    @Column(name = "cargo")
+    private String cargo;
+    @Size(max = 500)
+    @Column(name = "ccosto")
+    private String ccosto;
     @Column(name = "fechainicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicio;
@@ -72,7 +85,31 @@ public class Participante implements Serializable {
     public void setIdparticipante(Integer idparticipante) {
         this.idparticipante = idparticipante;
     }
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getCedula() {
+        return cedula;
+    }
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+    public String getCcosto() {
+        return ccosto;
+    }
+    public void setCcosto(String ccosto) {
+        this.ccosto = ccosto;
+    }
+    public String getCargo() {
+        return cargo;
+    }
 
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
     public Date getFechainicio() {
         return fechainicio;
     }

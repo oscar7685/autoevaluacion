@@ -44,12 +44,7 @@
                                 <li class="dropdown loggining"> 
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                         <i class="icon-user"></i> 
-                                        <c:choose>
-                                            <c:when test="${persona!=null}">${persona.nombre}</c:when>
-                                            <c:when test="${persona1!=null && persona0==null}">${persona1.nombre}</c:when>
-                                            <c:when test="${persona1==null && persona0!=null}">${persona0.nombre}</c:when>
-                                            <c:when test="${persona1!=null && persona0!=null}">${persona0.nombre}</c:when>
-                                        </c:choose>
+                                        ${participante.nombre}
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">

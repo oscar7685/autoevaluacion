@@ -28,12 +28,15 @@
     <div>
         <div id="conte" class="span10" style="text-align: justify">
             <div class="row">
-                <table class="table table-striped table-bordered" style="font-weight: bold;">
+                <table class="table table-bordered table-striped" style="font-weight: bold;">
                     <tbody>
                         <tr>
-                            <td style="text-align: center;">ESCUELA NAVAL DE CADETES "ALMIRANTE PADILLA"
-                                <!--<br/><span id="spanprograma">PROGRAMA: _PROGRAMA_</span>-->
-                                <br/>${encuesta.getNombre()}</td>
+                            <td rowspan="2" style="width: 25%; text-align: center;"><img src="/autoevaluacion/img/LogoUTB.png"></td>
+                            <td style="width: 50%; text-align: center;">UNIVERSIDAD TECNOLÓGICA DE BOLÍVAR</td>
+                            <td rowspan="2" style="width: 25%; text-align: center;"><img src="/autoevaluacion/img/CalidadUTB.png"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; text-align: center;">${encuesta.getNombre()}</td>
                         </tr>
                     </tbody>
                 </table>
