@@ -162,7 +162,7 @@ public class loginController extends HttpServlet {
             String un = (String) request.getParameter("un");
             String pw = (String) request.getParameter("pw");
             
-           Participante p =  participanteFacade.find(Integer.parseInt(un));
+           Participante p =  participanteFacade.find(un);
            
            if( p != null && un.equals(pw)  ){
                 session.setAttribute("tipoLogin", "Fuente");

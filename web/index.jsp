@@ -47,7 +47,7 @@
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
     </head>
-    <body style="padding-top: 0px; background-image: url(img/fachada.png); background-repeat: no-repeat;background-size: 100%;">
+    <body style="padding-top: 0px; background-image: url(img/UTB_autoevaluaciónBanner.jpg); background-repeat: no-repeat;background-size: 100%;">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <header style="padding-top: 300px;">
+        <header style="padding-top:2px;">
 
         </header>
          <!--<div class="container">-->

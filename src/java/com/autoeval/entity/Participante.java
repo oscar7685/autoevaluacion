@@ -41,10 +41,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Participante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Size(max = 15)
     @Basic(optional = false)
     @Column(name = "idparticipante")
-    private Integer idparticipante;
+    private String idparticipante;
     @Size(max = 500)
     @Column(name = "nombre")
     private String nombre;
@@ -74,15 +74,15 @@ public class Participante implements Serializable {
     public Participante() {
     }
 
-    public Participante(Integer idparticipante) {
+    public Participante(String idparticipante) {
         this.idparticipante = idparticipante;
     }
 
-    public Integer getIdparticipante() {
+    public String getIdparticipante() {
         return idparticipante;
     }
 
-    public void setIdparticipante(Integer idparticipante) {
+    public void setIdparticipante(String idparticipante) {
         this.idparticipante = idparticipante;
     }
     public String getNombre() {
