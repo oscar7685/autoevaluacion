@@ -18,6 +18,7 @@
                             </td>
                             <td>   
                                 <a title="Responder Encuesta" href="#responderEncuestaF">Responder encuesta >></a>
+                                <br/> <a title="Responder Encuesta" href="#responderEncuesta2F">Responder encuesta Opcion 2>></a>
                             </td>
                         </tr>
                     </tbody>

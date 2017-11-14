@@ -244,9 +244,6 @@
                                                                     <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="Si" /></label></td>    
                                                                 </c:otherwise>        
                                                             </c:choose>
-                                                                    
-                                                                    
-                                                                    
                                                                 </tr>
                                                             </c:forEach>
                                                         </c:when>
@@ -266,97 +263,125 @@
                                             </table>
                                         </c:when>
                                         <c:otherwise>
-                                            <c:forEach items="${preguntasQueSeRepiten.get(pregunta.id)}" var="programa" varStatus="programaIndex">
-                                                <table class="table">
-                                                    <c:choose>
-                                                        <c:when test="${pregunta.getTipo()=='1'}">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="span3">Programa: ${programa.nombre}</th>
-                                                                    <th class="span2" style="font-size: 12px">1:Muy bajo</th>
-                                                                    <th class="span2" style="font-size: 12px">2:Bajo</th>
-                                                                    <th class="span2" style="font-size: 12px">3:Medio</th>
-                                                                    <th class="span2" style="font-size: 12px">4:Alto</th>
-                                                                    <th class="span2" style="font-size: 12px">5:Muy alto</th>
-                                                                    <th class="span2" style="font-size: 12px">NS/NR</th>
-                                                                </tr>
-                                                            </thead>
-                                                        </c:when>
-                                                        <c:when test="${pregunta.getTipo()=='2'}">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="span3">Programa: ${programa.nombre}</th>
-                                                                    <th class="span2" style="font-size: 12px">1:En ningún grado</th>
-                                                                    <th class="span2" style="font-size: 12px">2:En bajo grado</th>
-                                                                    <th class="span2" style="font-size: 12px">3:Aceptablemente</th>
-                                                                    <th class="span2" style="font-size: 12px">4:En alto grado</th>
-                                                                    <th class="span2" style="font-size: 12px">5:Totalmente</th>
-                                                                    <th class="span2" style="font-size: 12px">NS/NR</th>
-                                                                </tr>
-                                                            </thead>
-                                                        </c:when>
-                                                        <c:when test="${pregunta.getTipo()=='3'}">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="span3">Programa: ${programa.nombre}</th>
-                                                                    <th class="span2" style="font-size: 12px">1:Muy mala</th>
-                                                                    <th class="span2" style="font-size: 12px">2:Mala</th>
-                                                                    <th class="span2" style="font-size: 12px">3:Regular</th>
-                                                                    <th class="span2" style="font-size: 12px">4:Buena</th>
-                                                                    <th class="span2" style="font-size: 12px">5:Excelente</th>
-                                                                    <th class="span2" style="font-size: 12px">NS/NR</th>
-                                                                </tr>
-                                                            </thead>
-                                                        </c:when>
-                                                        <c:when test="${pregunta.getTipo()=='4'}">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="span3">Programa: ${programa.nombre}</th>
-                                                                    <th class="span4" style="font-size: 12px">1:No</th>
-                                                                    <th class="span4" style="font-size: 12px">2:Si</th>
-                                                                </tr>
-                                                            </thead>
-                                                        </c:when>     
-                                                    </c:choose>
-                                                    <tbody>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                <th class="span2"></th>
+                                                <c:forEach items="${preguntasQueSeRepiten.get(pregunta.id)}" var="programa" varStatus="programaIndex">
+                                                    <th class="span2">${programa.nombre}</th>
+                                                </c:forEach>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
                                                         <c:choose>
                                                             <c:when test="${fn:length(pregunta.preguntaList)!= 0}"> <!--tiene subpreguntas-->
                                                                 <c:forEach items="${pregunta.preguntaList}" var="sub">
                                                                     <tr>
-                                                                        <td>${sub.getPregunta()}</td>
-                                                                        <c:choose>
-                                                                            <c:when test="${pregunta.getTipo()!='4'}">
-                                                                                <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="1" /></label></td>
-                                                                                <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="2" /></label></td>
-                                                                                <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="3" /></label></td>
-                                                                                <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="4" /></label></td>
-                                                                                <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="5" /></label></td>
-                                                                                <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="0" /></label></td>
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="No" /></label></td>
-                                                                                <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="Si" /></label></td>    
-                                                                            </c:otherwise>        
-                                                                        </c:choose>    
+                                                                        <td class="span2">${sub.getPregunta()}</td>
+                                                                         <c:forEach items="${preguntasQueSeRepiten.get(pregunta.id)}" var="programa2" varStatus="programaIndex2">
+                                                                             <td class="span2">
+                                                                               <c:choose>
+                                                                                   <c:when test="${pregunta.getTipo()=='1'}">
+                                                                                       <select name="pregunta${sub.id}programa${programa2.id}" class="{required:true} span2">
+                                                                                           <option></option>
+                                                                                           <option value="1">1:Muy bajo</option>
+                                                                                           <option value="2">2:Bajo</option>
+                                                                                           <option value="3">3:Medio</option>
+                                                                                           <option value="4">4:Alto</option>
+                                                                                           <option value="5">5:Muy Alto</option>
+                                                                                           <option value="0">NS/NR</option>
+                                                                                       </select>    
+                                                                                   </c:when>
+                                                                                   <c:when test="${pregunta.getTipo()=='2'}">
+                                                                                       <select name="pregunta${sub.id}programa${programa2.id}" class="{required:true} span2">
+                                                                                           <option></option>
+                                                                                           <option value="1">1:En ningún grado</option>
+                                                                                           <option value="2">2:En bajo grado</option>
+                                                                                           <option value="3">3:Aceptablemente</option>
+                                                                                           <option value="4">4:En alto grado</option>
+                                                                                           <option value="5">5:Totalmente</option>
+                                                                                           <option value="0">NS/NR</option>
+                                                                                       </select>    
+                                                                                   </c:when>
+                                                                                   <c:when test="${pregunta.getTipo()=='3'}">
+                                                                                       <select name="pregunta${sub.id}programa${programa2.id}" class="{required:true} span2">
+                                                                                           <option></option>
+                                                                                           <option value="1">1:Muy mala</option>
+                                                                                           <option value="2">2:Mala</option>
+                                                                                           <option value="3">3:Regular</option>
+                                                                                           <option value="4">4:Buena</option>
+                                                                                           <option value="5">5:Excelente</option>
+                                                                                           <option value="0">NS/NR</option>
+                                                                                       </select>    
+                                                                                   </c:when>
+                                                                                   <c:when test="${pregunta.getTipo()=='4'}">
+                                                                                       <select name="pregunta${sub.id}programa${programa2.id}" class="{required:true} span2">
+                                                                                           <option></option>
+                                                                                           <option value="No">1:No</option>
+                                                                                           <option value="Si">2:Si</option>
+                                                                                       </select>    
+                                                                                   </c:when>
+                                                                               </c:choose>    
+                                                                             </td>
+                                                                         </c:forEach>
                                                                     </tr>
                                                                 </c:forEach>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <tr>
-                                                                    <td></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${pregunta.id}programa${programa.id}" value="1" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${pregunta.id}programa${programa.id}" value="2" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${pregunta.id}programa${programa.id}" value="3" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${pregunta.id}programa${programa.id}" value="4" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${pregunta.id}programa${programa.id}" value="5" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${pregunta.id}programa${programa.id}" value="0" /></label></td>
-                                                                </tr>
+                                                                        <td></td>
+                                                                         <c:forEach items="${preguntasQueSeRepiten.get(pregunta.id)}" var="programa2" varStatus="programaIndex2">
+                                                                             <td class="span2">
+                                                                               <c:choose>
+                                                                                   <c:when test="${pregunta.getTipo()=='1'}">
+                                                                                       <select name="pregunta${pregunta.id}programa${programa2.id}" class="{required:true} span2">
+                                                                                           <option ></option>
+                                                                                           <option value="1">1:Muy bajo</option>
+                                                                                           <option value="2">2:Bajo</option>
+                                                                                           <option value="3">3:Medio</option>
+                                                                                           <option value="4">4:Alto</option>
+                                                                                           <option value="5">5:Muy Alto</option>
+                                                                                           <option value="0">NS/NR</option>
+                                                                                       </select>    
+                                                                                   </c:when>
+                                                                                   <c:when test="${pregunta.getTipo()=='2'}">
+                                                                                       <select name="pregunta${pregunta.id}programa${programa2.id}" class="{required:true} span2">
+                                                                                           <option ></option>
+                                                                                           <option value="1">1:En ningún grado</option>
+                                                                                           <option value="2">2:En bajo grado</option>
+                                                                                           <option value="3">3:Aceptablemente</option>
+                                                                                           <option value="4">4:En alto grado</option>
+                                                                                           <option value="5">5:Totalmente</option>
+                                                                                           <option value="0">NS/NR</option>
+                                                                                       </select>    
+                                                                                   </c:when>
+                                                                                   <c:when test="${pregunta.getTipo()=='3'}">
+                                                                                       <select name="pregunta${pregunta.id}programa${programa2.id}" class="{required:true} span2">
+                                                                                           <option ></option>
+                                                                                           <option value="1">1:Muy mala</option>
+                                                                                           <option value="2">2:Mala</option>
+                                                                                           <option value="3">3:Regular</option>
+                                                                                           <option value="4">4:Buena</option>
+                                                                                           <option value="5">5:Excelente</option>
+                                                                                           <option value="0">NS/NR</option>
+                                                                                       </select>    
+                                                                                   </c:when>
+                                                                                   <c:when test="${pregunta.getTipo()=='4'}">
+                                                                                       <select name="pregunta${pregunta.id}programa${programa2.id}" class="{required:true} span2">
+                                                                                           <option ></option>
+                                                                                           <option value="No">1:No</option>
+                                                                                           <option value="Si">2:Si</option>
+                                                                                       </select>    
+                                                                                   </c:when>
+                                                                               </c:choose>    
+                                                                             </td>
+                                                                         </c:forEach>
+                                                                    </tr>
                                                             </c:otherwise>        
                                                         </c:choose>
                                                     </tbody>
-                                                </table>
-                                            </c:forEach>
-                                        </c:otherwise>
+                                            </table>
+                                          </c:otherwise>
                                     </c:choose>
                                 </c:when>   
                             </c:choose>

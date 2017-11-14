@@ -100,7 +100,7 @@ public class controladorF extends HttpServlet {
                 rd.forward(request, response);
 
             } else {
-                if (action.equals("responderEncuestaF")) {
+                if (action.equals("responderEncuestaF") || action.equals("responderEncuesta2F")) {
                     Participante p = (Participante) session.getAttribute("participante");
                     List<ParticipanteHasRol> phr = p.getParticipanteHasRolList();
                     List<Encuesta> encuestaCombinar = new ArrayList<Encuesta>();
@@ -253,22 +253,17 @@ public class controladorF extends HttpServlet {
                     }
                     Collections.sort(preguntas);
 
-                    
-                    
-                    
                     List<List<Programa>> preguntasQueSeRepiten = new ArrayList<List<Programa>>();
-                    
+
                     for (int i = 0; i < 56; i++) {
                         preguntasQueSeRepiten.add(null);
                     }
-                    
-                    
-                    
+
                     preguntasQueSeRepiten.add(4, pregunta4);
                     preguntasQueSeRepiten.add(15, pregunta15);
                     preguntasQueSeRepiten.add(24, pregunta24);
                     preguntasQueSeRepiten.add(25, pregunta25);
-                    preguntasQueSeRepiten.add(26,pregunta26);
+                    preguntasQueSeRepiten.add(26, pregunta26);
                     preguntasQueSeRepiten.add(27, pregunta27);
                     preguntasQueSeRepiten.add(28, pregunta28);
                     preguntasQueSeRepiten.add(29, pregunta29);
@@ -276,12 +271,15 @@ public class controladorF extends HttpServlet {
                     preguntasQueSeRepiten.add(37, pregunta37);
                     preguntasQueSeRepiten.add(39, pregunta39);
                     preguntasQueSeRepiten.add(55, pregunta55);
-                    
+
                     session.setAttribute("preguntas", preguntas);
                     session.setAttribute("preguntasQueSeRepiten", preguntasQueSeRepiten);
-                    
-                    
-                    String url = "/WEB-INF/vista/fuente/responderEncuesta.jsp";
+                    String url;
+                    if (action.equals("responderEncuestaF")) {
+                        url = "/WEB-INF/vista/fuente/responderEncuesta.jsp";
+                    } else {
+                        url = "/WEB-INF/vista/fuente/responderEncuesta2.jsp";
+                    }
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
                 } else {
