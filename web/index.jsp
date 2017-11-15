@@ -71,14 +71,16 @@
         </header>
          <!--<div class="container">-->
              <div class="row" id="login">
-                 <form name="formularioLogin" class="form-signin" id="formulario_login">
+                 <form name="formularioLogin" class="form-signin" id="formulario_login" style="max-width: 700px;">
                      <div class="alert alert-error fade in" id="login-error" style="display:none;">
                          <button type="button" class="close" id="close1">×</button>
                      </div>
-                     <h2 class="form-signin-heading">Acceder</h2>
-                     <input type="text" placeholder="Usuario" name="codigo" id="codigo" class="input-block-level {required:true}">
-                     <input type="password" placeholder="Contraseña" name="clave" id="pass" class="input-block-level {required:true}" >
-                     <button id="btnIniciar" type="submit" class="btn btn-large btn-primary">Acceder</button>
+                     <!--<h2 class="form-signin-heading">Acceder</h2>-->
+                     <div style="text-align: center">
+                     <input type="text" placeholder="Usuario" name="codigo" id="codigo" class="{required:true}">
+                     <input type="password" placeholder="Contraseña" name="clave" id="pass" class="{required:true}" >
+                     <button id="btnIniciar" type="submit" class="btn btn-large btn-primary" style="margin-bottom: 15px;">Acceder</button>
+                     </div>
                  </form>
              </div>
  
