@@ -1,8 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript">
-    $(function() {
-        $("#selectListMuestra").change(function() {
+    $(function () {
+        $("#selectListMuestra").change(function () {
             $("#listM").empty();
             var a = $("#selectListMuestra option:selected").index();
             if (a == 0) {
@@ -16,9 +16,9 @@
                     type: 'POST',
                     url: "/autoevaluacion/controladorCP?action=selectorListMuestra",
                     data: $("#formListarMuestra").serialize(),
-                    success: function(datos) {
+                    success: function (datos) {
                         $("#listM").append(datos);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             $("#dancing-dots-text").remove();
                         }, 200);
                     } //fin success
@@ -40,15 +40,20 @@
                                 <div class="controls">
                                     <select name="fuente" id="selectListMuestra">
                                         <option value="--">Seleccionar Fuente</option>
-                                        <option value="Estudiante">Estudiantes</option>
-                                        <option value="Docente">Docentes</option>
-                                        <option value="Egresado">Egresados</option>
-                                        <option value="Administrativo">Administrativos</option>
-                                        <option value="Directivo">Directivos</option>
-                                        <option value="Empleador">Empleadores</option>
+                                        <option value="EstudianteP">ESTUDIANTES PREGRADO</option>
+                                        <option value="EstudianteM">ESTUDIANTES MAESTRIAS Y DOCTORADOS</option>
+                                        <option value="EstudianteE">ESTUDIANTES DE ESPECIALIZACIONES</option>
+                                        <option value="ProfesorP">PROFESORES DE PLANTA</option>
+                                        <option value="ProfesorC">PROFESORES DE CÁTEDRA</option>
+                                        <option value="Directivo">DIRECTIVOS</option>
+                                        <option value="Administrativo">ADMINISTRATIVOS</option>
+                                        <option value="EgresadoP">EGRESADOS PREGRADO</option>
+                                        <option value="EgresadoE">EGRESADOS ESPECIALIZACIONES</option>
+                                        <option value="EgresadoM">EGRESADOS MAESTRIA Y DOCTORADO</option>
+                                        <option value="Empleador">EMPLEADORES</option>
                                     </select>
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                     </fieldset>
                 </form>
@@ -57,5 +62,5 @@
             <div id="listM"></div>
         </div>
     </div>
-</div>
+</div>                       
 

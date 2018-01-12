@@ -208,7 +208,6 @@
 
 </c:if>
 <div id="printMuestra">
-    <p style="font-weight: bold">Población y Muestra de la fuente ${fuenteX}.</p>
     <c:if test="${EstadoProceso == 2}">
         <div>
             <div style="margin-left: 0px;" class="span1"><span style="margin-left: 0px;" id="spanActualizado" class="label label-info span1">Actualizado</span></div>
@@ -220,10 +219,6 @@
             <div id="editM">
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active"><a href="#poblacionest" data-toggle="tab">Población</a></li>
-                        <c:if test ="${Muestra!= null}" >
-                        <li><a href="#muestraes" data-toggle="tab">Muestra</a></li>
-                        </c:if>
-
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="poblacionest">
@@ -236,128 +231,20 @@
                             </thead>
                             <tbody id="bodytablaestudiante">
                                 <c:choose>
-                                    <c:when test="${fn:length(poblacion)!= 0}">
-                                        <c:forEach items="${poblacion}" var="paux" varStatus="iter55">
+                                    <c:when test="${fn:length(participantes)!= 0}">
+                                        <c:forEach items="${participantes}" var="participante" varStatus="iter1">
                                             <tr>
-                                                <td>${paux.personaId.id}</td>
-                                                <td>${paux.personaId.nombre}</td>
+                                                <td>${participante.idparticipante}</td>
+                                                <td>${participante.nombre}</td>
                                             </tr>
                                         </c:forEach>
                                     </c:when>
                                 </c:choose>
                             </tbody>
                         </table>
-                        <c:if test="${(EstadoProceso == 2 || EstadoProceso == 1) && tipoLogin=='Comite central'}">
-                            <a id="bpreparedCrearPersona" class="btn btn-large btn-primary"><i class="icon-edit-sign"></i> Crear Evaluador</a>
-                            <a id="bpreparedEliminarPersonas" class="btn btn-large btn-primary"><i class="icon-edit-sign"></i> Eliminar personas</a>
-                        </c:if>
-                        <p id="total0" style="font-weight: bold">Total: ${fn:length(poblacion)}</p>
-                        <c:if test="${(EstadoProceso == 2 || EstadoProceso == 1) && tipoLogin=='Comite central'}">
-                            <h2>Adjuntar Archivo con la población</h2> 
-                            <form action="Formulario" class="form row-border" enctype='multipart/form-data'>
-                                <div class="form-group">
-                                    <!-- The global progress bar -->
-                                    <div class="col-sm-12">
-                                        <div id="progress" class="progress">
-                                            <div class="progress-bar progress-bar-success"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-5">
-
-                                        <span class="btn btn-success fileinput-button">      
-                                            <i class="glyphicon glyphicon-plus"></i>
-                                            <span>Seleccionar archivo...</span>
-                                            <input id="fileupload" type="file" name="files[]" multiple>
-                                        </span>
-
-                                    </div>
-                                    <label class="col-sm-10 control-label">Ingrese el archivo excel con la poblaci&oacute;n de ${fuenteX}s asociada del programa ${Proceso.programaId.nombre}.<br>Solamente se aceptan archivos con el formato brindado.</label>
-
-                                    <div class="col-sm-10">
-                                        <div class="col-sm-5">
-                                            <li id="sharefLI_1">
-                                                <a href="DescargarFormato?fuente=${fuenteX}" id="sharefA_2" target="_blank"><i id="sharefI_3" class="icon-download-alt"></i> Descargar formato</a>
-                                            </li>
-                                        </div>
-                                        <!-- The file input field used as target for the file upload widget -->
-                                        <!-- The container for the uploaded files -->
-                                        <div id="files" class="files"></div>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </c:if>
+                        <p id="total0" style="font-weight: bold">Total: ${fn:length(participantes)}</p>
+                       
                     </div>
-                    <c:if test ="${Muestra!= null}" >
-                        <div class="tab-pane" id="muestraes">
-                            <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-danger">
-                                    <input type="checkbox" autocomplete="off" checked>Pendiente
-                                </label>
-                                <label class="btn btn-success">
-                                    <input type="checkbox" autocomplete="off" checked>Terminado
-                                </label>
-                            </div>
-                            <br><br>
-                            <table id="tablaY1" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Identificación</th>
-                                        <th>Nombre</th>
-                                            <c:if test="${fuenteX == 'Estudiante' || fuenteX == 'Docente' || fuenteX == 'Administrativo' || fuenteX == 'Egresado'}">
-                                            <th>Tipo</th>
-                                            </c:if>
-                                            <c:if test="${fuenteX == 'Estudiante'}">
-                                            <th>Curso</th>
-                                            </c:if>
-
-                                    </tr>
-                                </thead>
-                                <tbody id="bodytablaestudiante">
-                                    <c:choose>
-                                        <c:when test="${fn:length(listMuestraCon)!= 0}">
-                                            <c:forEach items="${listMuestraCon}" var="faux" varStatus="iter55">
-                                                <tr class="terminadoC">
-                                                    <td style="background-color: #DFF0D8; color: #468847;"> ${faux.muestrapersonaId.cedula}</td>
-                                                    <td style="background-color: #DFF0D8; color: #468847;"> ${faux.muestrapersonaId.nombre}</td>
-                                                    <c:if test="${fuenteX == 'Estudiante' || fuenteX == 'Docente' || fuenteX == 'Administrativo' || fuenteX == 'Egresado'}">
-                                                        <td style="background-color: #DFF0D8; color: #468847;"> ${faux.tp}</td>
-                                                    </c:if>
-                                                    <c:if test="${fuenteX == 'Estudiante'}">
-                                                        <td style="background-color: #DFF0D8; color: #468847;"> ${faux.curso}</td>
-                                                    </c:if>
-
-                                                </tr>
-                                            </c:forEach>
-                                        </c:when>
-                                    </c:choose>
-                                    <c:choose>
-                                        <c:when test="${fn:length(listMuestraSin)!= 0}">
-                                            <c:forEach items="${listMuestraSin}" var="faux" varStatus="iter55">
-                                                <tr class="pendienteC">
-                                                    <td style="background-color: #F2DEDE; color: #B94A48"> ${faux.muestrapersonaId.cedula}</td>
-                                                    <td style="background-color: #F2DEDE; color: #B94A48;"> ${faux.muestrapersonaId.nombre}</td>
-                                                    <c:if test="${fuenteX == 'Estudiante' || fuenteX == 'Docente' || fuenteX == 'Administrativo' || fuenteX == 'Egresado'}">
-                                                        <td style="background-color: #F2DEDE; color: #B94A48;"> ${faux.tp}</td>
-                                                    </c:if>
-                                                    <c:if test="${fuenteX == 'Estudiante'}">
-                                                        <td style="background-color: #F2DEDE; color: #B94A48;"> ${faux.curso}</td>
-                                                    </c:if>
-
-                                                </tr>
-                                            </c:forEach>
-                                        </c:when>
-                                    </c:choose>
-
-                                </tbody>
-                            </table>
-                            <c:if test="${(EstadoProceso == 2 || EstadoProceso == 1) && tipoLogin=='Comite central'}">
-                                <a id="bpreparedEditarMuestra" class="btn btn-large btn-primary llamador"><i class="icon-edit-sign"></i> Editar Muestra</a>
-                            </c:if>
-                            <p id="total" style="font-weight: bold">Total: ${fn:length(listMuestraCon) + fn:length(listMuestraSin)}</p>
-                        </div> 
-                    </c:if>
-
                 </div>
             </div>
         </div>

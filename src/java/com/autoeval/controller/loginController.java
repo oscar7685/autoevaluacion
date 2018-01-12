@@ -57,6 +57,7 @@ import org.apache.log4j.Logger;
  * @author Ususario
  */
 public class loginController extends HttpServlet {
+
     @EJB
     private ModeloFacade modeloFacade;
     @EJB
@@ -91,9 +92,8 @@ public class loginController extends HttpServlet {
     private ProcesoFacade procesoFacade;
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -122,8 +122,7 @@ public class loginController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -137,8 +136,7 @@ public class loginController extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -161,34 +159,59 @@ public class loginController extends HttpServlet {
             /*parametros*/
             String un = (String) request.getParameter("un");
             String pw = (String) request.getParameter("pw");
-            
-           Participante p =  participanteFacade.find(un);
-           
-           if( p != null && un.equals(pw)  ){
-                session.setAttribute("tipoLogin", "Fuente");
-                session.setAttribute("participante", p);
-                out.print("0");
-               /*List<ParticipanteHasRol>  phr = p.getParticipanteHasRolList();
-               for (int i = 0; i < phr.size(); i++) {
-                 Programa prog = phr.get(i).getProgramaId();
-                 Rol rol = phr.get(i).getRolId();
-                 Modelo m = null;
-                 if(prog.getTipoformacion().equals("Institucional")){
-                   m  = modeloFacade.find(1);
-                 }
-                 Fuente f = fuenteFacade.find(rol.getId());
-                 Asignacionencuesta ae = asignacionencuestaFacade.findBySingle2("fuenteId", f, "modeloId", m);
-                 Encuesta encuestaAplicar = ae.getEncuestaId();
-                 List<Pregunta> preguntas = encuestaAplicar.getPreguntaList();
+
+            try {
+                r = representanteFacade.find(Integer.parseInt(un));
+            } catch (NumberFormatException e) {
+            }
+            if (r == null) {
+                Participante p = participanteFacade.find(un);
+                if (p != null && un.equals(pw)) {
+                    session.setAttribute("tipoLogin", "Fuente");
+                    session.setAttribute("participante", p);
+                    respuesta = "0";
+                    /*List<ParticipanteHasRol>  phr = p.getParticipanteHasRolList();
+                     for (int i = 0; i < phr.size(); i++) {
+                     Programa prog = phr.get(i).getProgramaId();
+                     Rol rol = phr.get(i).getRolId();
+                     Modelo m = null;
+                     if(prog.getTipoformacion().equals("Institucional")){
+                     m  = modeloFacade.find(1);
+                     }
+                     Fuente f = fuenteFacade.find(rol.getId());
+                     Asignacionencuesta ae = asignacionencuestaFacade.findBySingle2("fuenteId", f, "modeloId", m);
+                     Encuesta encuestaAplicar = ae.getEncuestaId();
+                     List<Pregunta> preguntas = encuestaAplicar.getPreguntaList();
                  
-                 session.setAttribute("preguntas", preguntas);
-                 String url = "/WEB-INF/vista/fuente/responderEncuesta.jsp";
-                 RequestDispatcher rd = request.getRequestDispatcher(url);
-                 rd.forward(request, response);
-               }*/
-           }else{
-               out.print("1");
-           }
+                     session.setAttribute("preguntas", preguntas);
+                     String url = "/WEB-INF/vista/fuente/responderEncuesta.jsp";
+                     RequestDispatcher rd = request.getRequestDispatcher(url);
+                     rd.forward(request, response);
+                     }*/
+                } else {
+                    respuesta = "1";
+                }
+            } else {
+                if (r.getPassword().equals(pw) && r.getRol().equals("Comite central")) {
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("Credenciales validas");
+                    }
+                    session.setAttribute("tipoLogin", "Comite central");
+                    session.setAttribute("nombre", "" + r.getNombre() + " " + r.getApellido());
+                    respuesta = "0";
+                }
+            }
+            if (respuesta.equals("0")) {
+                if (usuario != null) {
+                    session.setAttribute("personaLogueada", usuario.get(0).getNombre() + " " + usuario.get(0).getApellido());
+                } else if (r != null) {
+                    session.setAttribute("personaLogueada", r.getNombre() + " " + r.getApellido());
+                }
+                String personaLogueada = (String) session.getAttribute("personaLogueada");
+                SessionCountListener.addPersonaLogueada(personaLogueada);
+                session.setAttribute("personasLogueadas", SessionCountListener.getPersonasLogueadas());
+            }
+            out.print(respuesta);
         }
     }
 

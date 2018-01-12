@@ -5,9 +5,13 @@
 package com.autoeval.ejb;
 
 import com.autoeval.entity.Participante;
+import com.autoeval.entity.Proceso;
+import com.autoeval.entity.Rol;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,5 +30,10 @@ public class ParticipanteFacade extends AbstractFacade<Participante> {
     public ParticipanteFacade() {
         super(Participante.class);
     }
-    
+    public List findByPerfil(Proceso p, Rol r) {
+        Query q = em.createNamedQuery("Participante.findByPerfil");
+        q.setParameter("proceso", p);
+        q.setParameter("rol", r.getId());
+        return q.getResultList();
+    }
 }
