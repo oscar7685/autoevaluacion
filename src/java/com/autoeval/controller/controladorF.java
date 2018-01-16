@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -55,6 +56,8 @@ import org.apache.log4j.Logger;
  */
 public class controladorF extends HttpServlet {
 
+    @EJB
+    private ParticipanteFacade participanteFacade;
     @EJB
     private AsignacionencuestaFacade asignacionencuestaFacade;
     @EJB
@@ -93,6 +96,7 @@ public class controladorF extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String action = (String) request.getParameter("action");
+
         try {
             if (action.equals("indexF")) {
                 String url = "/WEB-INF/vista/fuente/index.jsp";
@@ -284,59 +288,90 @@ public class controladorF extends HttpServlet {
                     rd.forward(request, response);
                 } else {
                     if (RESPONDER.equals(request.getParameter("action"))) {
+                        Participante part78 = (Participante) session.getAttribute("participante");
+                        part78.setFechafinal(new Date());
+                        participanteFacade.edit(part78);
+                        List<Pregunta> allPreguntas = (List<Pregunta>) session.getAttribute("preguntas");
+                        List<List<Programa>> preguntasQueSeRepiten = (List<List<Programa>>) session.getAttribute("preguntasQueSeRepiten");
 
-                        List<Pregunta> preguntas = (List<Pregunta>) session.getAttribute("preguntas");
-                        Encuesta e = (Encuesta) session.getAttribute("encuesta");
-                        Muestrapersona persona = (Muestrapersona) session.getAttribute("persona");
-                        Fuente fuente = (Fuente) session.getAttribute("fuente");
-                        String estado = "terminado";
+                        for (Pregunta pregunta : allPreguntas) {
 
-                        Encabezado enc = new Encabezado();
-                        enc.setProcesoId(persona.getMuestraId().getProcesoId());
-                        enc.setEncuestaId(e);
-                        enc.setEstado(estado);
-                        enc.setFuenteId(fuente);
-                        enc.setMuestrapersonaId(persona);
-                        enc.setFecha(new Date(new java.util.Date().getTime()));
-                        encabezadoFacade.create(enc);
-
-                        Encabezado recienCreado = encabezadoFacade.findByUltimo();
-                        try {
-                            for (Pregunta pregunta : preguntas) {
-
-                                if (pregunta.getPreguntaList() != null && pregunta.getPreguntaList().size() > 0) {
-
+                            if (!("si").equals(pregunta.getRepetir())) {//no es una pregunta que se repite por programa
+                                if (pregunta.getPreguntaList().isEmpty()) {
+                                    Respuestas raux = new Respuestas();
+                                    raux.setParticipanteIdparticipante(part78);
+                                    raux.setPreguntaId(pregunta);
+                                    String respuesta = (String) request.getParameter("pregunta" + pregunta.getId());
+                                    raux.setRespuesta(Integer.parseInt(respuesta));
+                                    respuestasFacade.create(raux);
+                                } else {
                                     for (int i = 0; i < pregunta.getPreguntaList().size(); i++) {
-                                        Resultadoevaluacion re = new Resultadoevaluacion();
-                                        re.setEncabezadoId(recienCreado);
-                                        re.setPreguntaId(pregunta.getPreguntaList().get(i));
-                                        String respuesta1 = (String) request.getParameter("pregunta" + pregunta.getPreguntaList().get(i).getId());
-                                        re.setRespuesta(respuesta1);
-                                        re.setRespuestaAbierta(null);
-                                        resultadoevaluacionFacade.create(re);
+                                        Respuestas raux = new Respuestas();
+                                        raux.setParticipanteIdparticipante(part78);
+                                        raux.setPreguntaId(pregunta.getPreguntaList().get(i));
+                                        String respuesta = (String) request.getParameter("pregunta" + pregunta.getPreguntaList().get(i).getId());
+                                        raux.setRespuesta(Integer.parseInt(respuesta));
+                                        respuestasFacade.create(raux);
 
                                     }
-                                } else {
-                                    Resultadoevaluacion re = new Resultadoevaluacion();
-                                    re.setEncabezadoId(recienCreado);
-                                    re.setPreguntaId(pregunta);
-                                    String respuesta1 = (String) request.getParameter("pregunta" + pregunta.getId());
-                                    re.setRespuesta(respuesta1);
-                                    re.setRespuestaAbierta(null);
-                                    resultadoevaluacionFacade.create(re);
+                                }
+                            } else {//es una pregunta que se repite por cada programa
+                                int[] indices = {4, 15, 24, 25, 26, 27, 28, 29, 32, 37, 39, 55};
+                                for (int i = 0; i < indices.length; i++) {
+                                    if (pregunta.getPreguntaList().isEmpty()) {//si no tiene preguntas hijas
+                                        if (pregunta.getCodigo().equals("" + indices[i])) {
+                                            if (preguntasQueSeRepiten.get(indices[i]).size() > 0) {//tiene programas asociados (Diferentes de institucional)
+                                                for (Programa programa : preguntasQueSeRepiten.get(indices[i])) {
+                                                    Respuestas raux = new Respuestas();
+                                                    raux.setParticipanteIdparticipante(part78);
+                                                    raux.setPreguntaId(pregunta);
+                                                    String respuesta = (String) request.getParameter("pregunta" + pregunta.getId() + "programa" + programa.getId());
+                                                    raux.setRespuesta(Integer.parseInt(respuesta));
+                                                    raux.setProgramaId(programa);
+                                                    respuestasFacade.create(raux);
+                                                }
+                                            } else {//si NO tiene programas asociados (Solo el institucional)
+                                                Respuestas raux = new Respuestas();
+                                                raux.setParticipanteIdparticipante(part78);
+                                                raux.setPreguntaId(pregunta);
+                                                String respuesta = (String) request.getParameter("pregunta" + pregunta.getId());
+                                                raux.setRespuesta(Integer.parseInt(respuesta));
+                                                respuestasFacade.create(raux);
+                                            }
+                                        }
+                                    } else {
+                                        //si no tiene preguntas hijas
+                                        List<Pregunta> subs = pregunta.getPreguntaList();
+                                        if (pregunta.getCodigo().equals("" + indices[i])) {
+                                            if (preguntasQueSeRepiten.get(indices[i]).size() > 0) {//tiene programas asociados (Diferentes de institucional)
+                                                for (Programa programa : preguntasQueSeRepiten.get(indices[i])) {
+                                                    for (Pregunta sub : subs) {
+                                                        Respuestas raux = new Respuestas();
+                                                        raux.setParticipanteIdparticipante(part78);
+                                                        raux.setPreguntaId(sub);
+                                                        String respuesta = (String) request.getParameter("pregunta" + sub.getId() + "programa" + programa.getId());
+                                                        raux.setRespuesta(Integer.parseInt(respuesta));
+                                                        raux.setProgramaId(programa);
+                                                        respuestasFacade.create(raux);
+                                                    }
+                                                }
+                                            } else {//si NO tiene programas asociados (Solo el institucional)
+                                                for (Pregunta sub : subs) {
+                                                    Respuestas raux = new Respuestas();
+                                                    raux.setParticipanteIdparticipante(part78);
+                                                    raux.setPreguntaId(sub);
+                                                    String respuesta = (String) request.getParameter("pregunta" + sub.getId());
+                                                    raux.setRespuesta(Integer.parseInt(respuesta));
+                                                    respuestasFacade.create(raux);
+                                                }
+                                            }
+                                        }
+
+                                    }
+
                                 }
                             }
-                        } catch (Exception ex) {
-                            LOGGER.error("Ha ocurrido un error guardando las repuestas: ", ex);
                         }
-
-                        recienCreado.setResultadoevaluacionList(resultadoevaluacionFacade.findByEncabezado(recienCreado));
-                        encabezadoFacade.edit(recienCreado);
-                        if (RESPONDER.equals(request.getParameter("action"))) {
-                            session.setAttribute("encuesta", null);
-                            session.setAttribute("preguntas", null);
-                        }
-
                     } else {
                         if (action.equals("inicioCC")) {
                             String url = "/WEB-INF/vista/fuente/inicio.jsp";

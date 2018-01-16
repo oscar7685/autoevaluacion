@@ -166,7 +166,7 @@ public class loginController extends HttpServlet {
             }
             if (r == null) {
                 Participante p = participanteFacade.find(un);
-                if (p != null && un.equals(pw)) {
+                if (p != null && un.equals(pw) && p.getFechafinal()== null) {
                     session.setAttribute("tipoLogin", "Fuente");
                     session.setAttribute("participante", p);
                     respuesta = "0";

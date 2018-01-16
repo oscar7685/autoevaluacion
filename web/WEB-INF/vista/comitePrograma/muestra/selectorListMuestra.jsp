@@ -233,9 +233,9 @@
                                 <c:choose>
                                     <c:when test="${fn:length(participantes)!= 0}">
                                         <c:forEach items="${participantes}" var="participante" varStatus="iter1">
-                                            <tr>
-                                                <td>${participante.idparticipante}</td>
-                                                <td>${participante.nombre}</td>
+                                            <tr <c:if test="${participante.fechafinal != null}">class="terminadoC"</c:if>>
+                                                <td <c:if test="${participante.fechafinal != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante.idparticipante}</td>
+                                                <td <c:if test="${participante.fechafinal != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante.nombre}</td>
                                             </tr>
                                         </c:forEach>
                                     </c:when>

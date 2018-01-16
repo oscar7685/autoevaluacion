@@ -8,9 +8,23 @@
             if (a == 0) {
                 $("#listM").empty();
                 $("#help1").html('<div class="alert alert-info" role="alert"><strong>Atenci&oacute;n</strong> Seleccione una fuente para ver la muestra asignada a la misma.</div>');
-            }
-            else {//para hacer el editar muestra
+            } else if (a == 1 || a == 2 || a == 3) {
+                $("#divPrograma").show();
+                $("#help1").html('Seleccione un programa para filtrar los resultados.');
+                $("#listM").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: "/autoevaluacion/controladorCP?action=listarProgramasSelect&a=" + a,
+                    success: function (datos) {
+                        $("#selectPrograma").html(datos);
+                        setTimeout(function () {
+                            $("#dancing-dots-text").remove();
+                        }, 200);
+                    } //fin success
+                }); //fin $.ajax 
+            } else {//para hacer el editar muestra
                 $("#help1").empty();
+                $("#divPrograma").hide();
                 $("#listM").empty();
                 $.ajax({
                     type: 'POST',
@@ -25,6 +39,30 @@
                 }); //fin $.ajax    
             }
         });
+        
+        $("#selectPrograma").change(function() {
+            var a = $("#selectPrograma option:selected").index();
+            if (a == 0) {
+                $("#listM").empty();
+            } else {
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/autoevaluacion/controladorCP?action=selectorListPrograma",
+                    data: $("#formListarMuestra").serialize(),
+                    success: function(datos) {
+                        $("#listM").empty();
+                        $("#listM").append(datos);
+                        setTimeout(function() {
+                            $("#dancing-dots-text").remove();
+                        }, 200);
+
+                    } //fin success
+                }); //fin $.ajax    
+            }
+        });
+        
+        
     });
 </script>
 <div class="hero-unit">
@@ -55,6 +93,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="control-group" id="divPrograma" style="display: none" class="span7">
+                            <label for="selectPrograma"  class="control-label">Programa: </label>
+                            <div class="controls">
+                                <form id="formSelectMuestra"  method="post">
+                                    <select name="programa" id="selectPrograma">
+                                        <option value="--">Seleccione Programa</option>
+                                        <option value="todos">Todos</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div> 
                     </fieldset>
                 </form>
                 <div id="help1"><div class="alert alert-info" role="alert"><strong>Atenci&oacute;n</strong> Seleccione una fuente para ver la muestra asignada a la misma.</div></div>

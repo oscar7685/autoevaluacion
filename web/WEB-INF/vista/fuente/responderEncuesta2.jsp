@@ -77,7 +77,7 @@
                 <c:forEach items="${preguntas}" var="pregunta" varStatus="status">
                     <div class="row" id="pregunta${pregunta.id}">
                         <div class="span12">
-                            <p style="font-weight: bold;">${pregunta.getCodigo()} ${pregunta.getPregunta()}</p>
+                            <p style="font-weight: bold;">${status.index+1} ${pregunta.getPregunta()}</p>
                             <c:choose>
                                 <c:when test="${pregunta.repetir == null}" >
                                     <table class="table">
@@ -139,16 +139,16 @@
                                                             <td>${sub.getPregunta()}</td>
                                                             <c:choose>
                                                                 <c:when test="${pregunta.getTipo()!='4'}">
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="1" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="2" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="3" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="4" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="5" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="0" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="1" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="2" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="3" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="4" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="5" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="0" /></label></td>
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="No" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="Si" /></label></td>    
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="1" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="5" /></label></td>    
                                                                 </c:otherwise>        
                                                             </c:choose>
                                                         </tr>
@@ -170,9 +170,9 @@
                                         </tbody>
                                     </table>
                                 </c:when>
-                                <c:when test="${pregunta.repetir == 'si'}" >    
+                                <c:when test="${pregunta.repetir == 'si'}" >  <!--TIENE al menos un programa asociados (distintos de institucional)-->  
                                     <c:choose>
-                                        <c:when test="${fn:length(preguntasQueSeRepiten.get(pregunta.id))== 0}">
+                                        <c:when test="${fn:length(preguntasQueSeRepiten.get(pregunta.id))== 0}"><!--no hay programas asociados (distintos de institucional)-->
                                             <table class="table">
                                                 <c:choose>
                                                     <c:when test="${pregunta.getTipo()=='1'}">
@@ -232,16 +232,16 @@
                                                                     <td>${sub.getPregunta()}</td>
                                                             <c:choose>
                                                                 <c:when test="${pregunta.getTipo()!='4'}">
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="1" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="2" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="3" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="4" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="5" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="0" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="1" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="2" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="3" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="4" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="5" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="0" /></label></td>
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="No" /></label></td>
-                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}programa${programa.id}" value="Si" /></label></td>    
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="1" /></label></td>
+                                                                    <td><label class="radio"><input type="radio" class="{required:true}" name="pregunta${sub.id}" value="5" /></label></td>    
                                                                 </c:otherwise>        
                                                             </c:choose>
                                                                 </tr>
@@ -262,7 +262,7 @@
                                                 </tbody>
                                             </table>
                                         </c:when>
-                                        <c:otherwise>
+                                        <c:otherwise><!--TIENE al menos un programa asociados (distintos de institucional)-->
                                             <table class="table">
                                                 <thead>
                                                 <tr>
@@ -317,8 +317,8 @@
                                                                                    <c:when test="${pregunta.getTipo()=='4'}">
                                                                                        <select name="pregunta${sub.id}programa${programa2.id}" class="{required:true} span2">
                                                                                            <option></option>
-                                                                                           <option value="No">1:No</option>
-                                                                                           <option value="Si">2:Si</option>
+                                                                                           <option value="1">1:No</option>
+                                                                                           <option value="5">2:Si</option>
                                                                                        </select>    
                                                                                    </c:when>
                                                                                </c:choose>    
@@ -369,8 +369,8 @@
                                                                                    <c:when test="${pregunta.getTipo()=='4'}">
                                                                                        <select name="pregunta${pregunta.id}programa${programa2.id}" class="{required:true} span2">
                                                                                            <option ></option>
-                                                                                           <option value="No">1:No</option>
-                                                                                           <option value="Si">2:Si</option>
+                                                                                           <option value="1">1:No</option>
+                                                                                           <option value="5">2:Si</option>
                                                                                        </select>    
                                                                                    </c:when>
                                                                                </c:choose>    
