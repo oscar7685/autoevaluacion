@@ -45,6 +45,7 @@ public class ParticipanteFacade extends AbstractFacade<Participante> {
         q.setParameter("proceso", p);
         q.setParameter("rol", r.getId());
         q.setParameter("programa", programa);
+        System.out.println("jajaja" + q.toString());
         return q.getResultList();
     }
 }

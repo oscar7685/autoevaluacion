@@ -34,26 +34,10 @@ private final Logger LOGGER = Logger.getLogger(DescargarFormato.class);
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String fuente = (String) request.getParameter("fuente");
         try {
             String ruta = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/com/autoeval/files/");
-
-            if (fuente.equals("Estudiante")) {
-                ruta += "\\formato_estudiantes.xlsx";
-            } else if (fuente.equals("Docente")) {
-                ruta += "\\formato_docentes.xlsx";
-            } else if (fuente.equals("Administrativo")) {
-                ruta += "\\formato_administrativos.xlsx";
-            } else if (fuente.equals("Directivo")) {
-                ruta += "\\formato_directivos.xlsx";
-            } else if (fuente.equals("Egresado")) {
-                ruta += "\\formato_egresados.xlsx";
-            } else if (fuente.equals("Empleador")) {
-                ruta += "\\formato_empleadores.xlsx";
-            }
-
-
-
+            ruta += "\\formato_poblacion.xlsx";
+            
             File f2 = new File(ruta);
             FileInputStream inStream = new FileInputStream(f2);
             OutputStream outStream = response.getOutputStream();
