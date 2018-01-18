@@ -36,7 +36,7 @@ private final Logger LOGGER = Logger.getLogger(DescargarFormato.class);
         response.setContentType("text/html;charset=UTF-8");
         try {
             String ruta = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/com/autoeval/files/");
-            ruta += "\\formato_poblacion.xlsx";
+            ruta += "/formato_poblacion.xlsx";
             
             File f2 = new File(ruta);
             FileInputStream inStream = new FileInputStream(f2);
