@@ -33,7 +33,7 @@
                         <tr>
                             <td rowspan="2" style="width: 25%; text-align: center;"><img src="/autoevaluacion/img/LogoUTB.png"></td>
                             <td style="width: 50%; text-align: center;">UNIVERSIDAD TECNOLÓGICA DE BOLÍVAR</td>
-                            <td rowspan="2" style="width: 25%; text-align: center;"><img src="/autoevaluacion/img/CalidadUTB.png"></td>
+                            <td rowspan="2" style="width: 25%; text-align: center;"><img src="/autoevaluacion/img/CalidadUTB.jpg"></td>
                         </tr>
                         <tr>
                             <td style="width: 50%; text-align: center;">${encuesta.getNombre()}</td>

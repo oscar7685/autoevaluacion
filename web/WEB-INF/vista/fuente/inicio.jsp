@@ -1,6 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <div  class="span10 offset2" style="text-align: justify">
     <div class="span8">
+        <div class="container">
+            <div class="starter-template">
+                <br/>
+                <p class="lead">Apreciado miembro de la comunidad académica UTB.<br/><br/>
+                    En el marco de los procesos de mejoramiento continuo y como parte de nuestra cultura de autoevaluación y autorregulación, la universidad requiere conocer sus apreciaciones sobre los siguientes factores de calidad: Misión y Proyecto Educativo Institucional, Profesores, Estudiantes, Procesos Académicos, Visibilidad Nacional e Internacional, Investigación, Pertinencia e Impacto Social, Bienestar Institucional, Planta Física, Recursos de Apoyo Académico, Recursos Financieros, Organización Administración y Gestión. 
+                    Para ello le agradecemos dedique unos minutos de su tiempo para responder la totalidad de las preguntas de la siguiente encuesta de autoevaluación con fines de la Renovación de nuestra Acreditación Institucional.
+                        </p>
+            </div>
+        </div>
         <br/>
         <h2>Listado de  Encuestas Disponibles</h2>
         <br/>
@@ -14,20 +23,15 @@
                     <tbody>
                         <tr>
                             <td>   
-                                Encuesta de autoevaluación
+                                Autoevaluación general (proceso conjunto)
                             </td>
                             <td>   
-                                <a title="Responder Encuesta" href="#responderEncuestaF">Responder encuesta >></a>
-                                <br/> <a title="Responder Encuesta" href="#responderEncuesta2F">Responder encuesta Opcion 2>></a>
+                                <a title="Responder Encuesta" href="#responderEncuesta2F">Responder encuesta</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <br/>
-                <h5 style="text-align: center;">Usted ha sido seleccionado al azar para diligenciar una encuesta de caracter an&oacute;nimo y voluntario, Recuerde que su participaci&oacute;n es fundamental en el proceso de autoevaluaci&oacute;n </h5>
-                <br/>
-                <p class="marketing-byline">Universidad Tecnol&oacute;gica de Bolivar</p>              
-
             </c:when>
             <c:otherwise>
                 No Existen Encuestas Disponibles.
