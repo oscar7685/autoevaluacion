@@ -39,7 +39,7 @@ public class DescargarLog extends HttpServlet {
 
         try {
             String ruta = request.getSession().getServletContext().getRealPath("../../config/");
-            ruta += "\\autoeval.log";
+            ruta += "/autoeval.log";
 
             File f2 = new File(ruta);
             FileInputStream inStream = new FileInputStream(f2);
