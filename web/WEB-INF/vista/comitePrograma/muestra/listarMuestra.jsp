@@ -76,113 +76,94 @@
 </style>
 <script type="text/javascript">
     $(function () {
-        $("#selectListMuestra").change(function () {
-            $("#listM").empty();
-            var a = $("#selectListMuestra option:selected").index();
-            if (a == 0) {
-                $("#listM").empty();
-                $("#help1").html('<div class="alert alert-info" role="alert"><strong>Atenci&oacute;n</strong> Seleccione una fuente para ver la muestra asignada a la misma.</div>');
-            } else if (a == 1 || a == 2 || a == 3) {
-                $("#divPrograma").show();
-                $("#help1").html('Seleccione un programa para filtrar los resultados.');
-                $("#listM").empty();
-                $.ajax({
-                    type: 'POST',
-                    url: "/autoevaluacion/controladorCP?action=listarProgramasSelect&a=" + a,
-                    success: function (datos) {
-                        $("#selectPrograma").html(datos);
-                        setTimeout(function () {
-                            $("#dancing-dots-text").remove();
-                        }, 200);
-                    } //fin success
-                }); //fin $.ajax 
-            } else {//para hacer el editar muestra
-                $("#help1").empty();
-                $("#divPrograma").hide();
-                $("#listM").empty();
-                $.ajax({
-                    type: 'POST',
-                    url: "/autoevaluacion/controladorCP?action=selectorListMuestra",
-                    data: $("#formListarMuestra").serialize(),
-                    success: function (datos) {
-                        $("#listM").append(datos);
-                        setTimeout(function () {
-                            $("#dancing-dots-text").remove();
-                        }, 200);
-                    } //fin success
-                }); //fin $.ajax    
-            }
+
+        $(".btn-group > .btn").click(function () {
+            $("tr.terminadoC").hide();
+            $("tr.pendienteC").hide();
+            $(".btn-group input").each(function (index) {
+                if ($(this).prop("checked") && index == 0) {
+                    $("tr.pendienteC").show();
+                } else if ($(this).prop("checked") && index == 1) {
+                    $("tr.terminadoC").show();
+                }
+            });
+            $("#total").text("Total: " + ($("tr.terminadoC:visible").length + $("tr.pendienteC:visible").length));
         });
-
-        $("#selectPrograma").change(function () {
-            var a = $("#selectPrograma option:selected").index();
-            if (a == 0) {
-                $("#listM").empty();
-            } else {
-
-                $.ajax({
-                    type: 'POST',
-                    url: "/autoevaluacion/controladorCP?action=selectorListPrograma",
-                    data: $("#formListarMuestra").serialize(),
-                    success: function (datos) {
-                        $("#listM").empty();
-                        $("#listM").append(datos);
-                        setTimeout(function () {
-                            $("#dancing-dots-text").remove();
-                        }, 200);
-
-                    } //fin success
-                }); //fin $.ajax    
-            }
-        });
-
-
     });
-</script>
+</script>   
+
 <div class="hero-unit">
     <div class="row">
         <div id="conte" class="span10">
             <ul class="nav nav-pills" style="margin-bottom: 0px">
-                <form id="formListarMuestra" class="" method="post" style="margin-bottom: 0px">
-                    <fieldset>
-                        <legend>Asignación de  Muestra</legend>
-                        <div class="span3" style="margin-left: 0px">
-                            <div class="control-group">
-                                <label for="selectListMuestra"  class="control-label">Fuente: </label>
-                                <div class="controls">
-                                    <select name="fuente" id="selectListMuestra">
-                                        <option value="--">Seleccionar Fuente</option>
-                                        <option value="EstudianteP">ESTUDIANTES PREGRADO</option>
-                                        <option value="EstudianteM">ESTUDIANTES MAESTRIAS Y DOCTORADOS</option>
-                                        <option value="EstudianteE">ESTUDIANTES DE ESPECIALIZACIONES</option>
-                                        <option value="ProfesorP">PROFESORES DE PLANTA</option>
-                                        <option value="ProfesorC">PROFESORES DE CÁTEDRA</option>
-                                        <option value="Directivo">DIRECTIVOS</option>
-                                        <option value="Administrativo">ADMINISTRATIVOS</option>
-                                        <option value="EgresadoP">EGRESADOS PREGRADO</option>
-                                        <option value="EgresadoE">EGRESADOS ESPECIALIZACIONES</option>
-                                        <option value="EgresadoM">EGRESADOS MAESTRIA Y DOCTORADO</option>
-                                        <option value="Empleador">EMPLEADORES</option>
-                                    </select>
+
+            </ul>
+            <div id="listM">
+                <div id="printMuestra">
+                    <c:if test="${EstadoProceso == 2}">
+                        <div>
+                            <div style="margin-left: 0px;" class="span1"><span style="margin-left: 0px;" id="spanActualizado" class="label label-info span1">Actualizado</span></div>
+                            <div class="span9"><p id="hora" class="help-block"></p></div>
+                        </div>
+                    </c:if>
+                    <div id="listM2" class="span10" style="margin-left: 0px;">
+                        <div class="span10" style="margin-left: 0px;">
+                            <div id="editM">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li class="active"><a href="#poblacionest" data-toggle="tab">Población</a></li>
+                                </ul>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-danger">
+                                        <input type="checkbox" autocomplete="off" checked>Pendiente
+                                    </label>
+                                    <label class="btn btn-success">
+                                        <input type="checkbox" autocomplete="off" checked>Terminado
+                                    </label>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="poblacionest">
+                                        <table id="tablaestudiante0" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Identificación</th>
+                                                    <th>Nombre</th>
+                                                    <th>Perfil</th>
+                                                    <th>Programa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodytablaestudiante">
+                                                <c:choose>
+                                                    <c:when test="${fn:length(participantes)!= 0}">
+                                                        <c:forEach items="${participantes}" var="participante" varStatus="iter1">
+                                                            <c:choose>
+                                                                <c:when test="${participante[4] != null}">
+                                                                    <tr class="terminadoC">
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                    <tr class="pendienteC"> 
+                                                                    </c:otherwise>    
+                                                                </c:choose>
+                                                                <td <c:if test="${participante[4] != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante[0]}</td>
+                                                                <td <c:if test="${participante[4] != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante[1]}</td>
+                                                                <td <c:if test="${participante[4] != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante[2]}</td>
+                                                                <td <c:if test="${participante[4] != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante[3]}</td>
+                                                                </tr>
+
+                                                        </c:forEach>
+                                                    </c:when>
+                                                </c:choose>
+                                            </tbody>
+                                        </table>
+                                        <p id="total0" style="font-weight: bold">Total: ${fn:length(participantes)}</p>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="control-group" id="divPrograma" style="display: none" class="span7">
-                            <label for="selectPrograma"  class="control-label">Programa: </label>
-                            <div class="controls">
-                                <form id="formSelectMuestra"  method="post">
-                                    <select name="programa" id="selectPrograma">
-                                        <option value="--">Seleccione Programa</option>
-                                        <option value="todos">Todos</option>
-                                    </select>
-                                </form>
-                            </div>
-                        </div> 
-                    </fieldset>
-                </form>
-                <div id="help1"><div class="alert alert-info" role="alert"><strong>Atenci&oacute;n</strong> Seleccione una fuente para ver la muestra asignada a la misma.</div></div>
-            </ul>
-            <div id="listM"></div>
+                    </div>
+                </div>
+
+            </div>
             <c:if test="${(EstadoProceso == 2 || EstadoProceso == 1) && tipoLogin=='Comite central'}">
                 <h2>Adjuntar Archivo con la población</h2> 
                 <form action="Formulario" class="form row-border" enctype='multipart/form-data'>

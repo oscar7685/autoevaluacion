@@ -14,6 +14,7 @@ import com.autoeval.ejb.IndicadorFacade;
 import com.autoeval.ejb.InstrumentoFacade;
 import com.autoeval.ejb.ModeloFacade;
 import com.autoeval.ejb.MuestraFacade;
+import com.autoeval.ejb.ParticipanteFacade;
 import com.autoeval.ejb.PonderacioncaracteristicaFacade;
 import com.autoeval.ejb.PonderacionfactorFacade;
 import com.autoeval.ejb.PreguntaFacade;
@@ -58,6 +59,9 @@ import org.apache.log4j.Logger;
 public class formController2 extends HttpServlet {
 
     @EJB
+    private ParticipanteFacade participanteFacade;
+
+    @EJB
     private FacultadFacade facultadFacade;
     @EJB
     private ProcesoFacade procesoFacade;
@@ -92,9 +96,8 @@ public class formController2 extends HttpServlet {
     private final Logger LOGGER = Logger.getLogger(formController2.class);
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -120,13 +123,11 @@ public class formController2 extends HttpServlet {
 
                 Proceso p = procesoFacade.find(Integer.parseInt(idM));
 
-
                 java.util.Date date = new java.util.Date();
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
                 String fecha = sdf.format(date);
                 p.setFechacierre(fecha);
                 procesoFacade.edit(p);
-
 
             } else if (action.equals("ejecutarProCC")) {
 
@@ -338,7 +339,6 @@ public class formController2 extends HttpServlet {
                                                 }
                                             }
 
-
                                             List<Caracteristica> aux = new ArrayList<Caracteristica>();
                                             List<Caracteristica> listadeCaracteristicas = (List<Caracteristica>) sesion.getAttribute("listaC");
                                             if (listadeCaracteristicas != null) {
@@ -428,7 +428,6 @@ public class formController2 extends HttpServlet {
                                                     }
                                                 }
 
-
                                                 List<Indicador> aux = new ArrayList<Indicador>();
                                                 List<Indicador> lista = (List<Indicador>) sesion.getAttribute("listaI");
                                                 if (lista != null) {
@@ -492,7 +491,6 @@ public class formController2 extends HttpServlet {
                                     indicadorFacade.edit(i2);
                                     sesion.setAttribute("listaI", indicadorFacade.findByModelo(m2));
 
-
                                 } else {
                                     if (action.equals("crearIndicadorCC")) {
                                         String url = "/WEB-INF/vista/comiteCentral/indicador/crear.jsp";
@@ -553,8 +551,6 @@ public class formController2 extends HttpServlet {
                                                         }
                                                     }
 
-
-
                                                     i.setCodigo(codigo);
                                                     i.setNombre(nombre);
                                                     i.setModeloId(m2);
@@ -588,7 +584,6 @@ public class formController2 extends HttpServlet {
                                         preguntaFacade.create(p);
                                         sesion.setAttribute("listaP", preguntaFacade.findByModelo(m2));
 
-
                                     } else {
                                         if (action.equals("crearPreguntaCC")) {
                                             String url = "/WEB-INF/vista/comiteCentral/pregunta/crear.jsp";
@@ -617,7 +612,6 @@ public class formController2 extends HttpServlet {
                                                         String tipo = (String) request.getParameter("tipo");
                                                         String indicador = (String) request.getParameter("indicador");
                                                         p.setIndicadorId(indicadorFacade.find(Integer.parseInt(indicador)));
-
 
                                                         p.setCodigo(codigo);
                                                         p.setPregunta(pregunta);
@@ -733,7 +727,6 @@ public class formController2 extends HttpServlet {
                                                             sesion.setAttribute("listaE", encuestaFacade.findByModelo(m));
                                                             sesion.setAttribute("listaP", preguntaFacade.findByModelo(m));
 
-
                                                         } else {
                                                             if (action.equals("vistaPreviaEncuestaCC")) {
                                                                 String idE = request.getParameter("id");
@@ -780,7 +773,6 @@ public class formController2 extends HttpServlet {
                                                     p.setRepresentanteList(rep);
                                                     programaFacade.edit(p);
                                                 }
-
 
                                             } else {
                                                 if (action.equals("crearCoordinadorCC")) {
@@ -846,59 +838,38 @@ public class formController2 extends HttpServlet {
                                                                 r.setProgramaList(progra);
                                                                 representanteFacade.edit(r);
 
-
-
                                                             }
                                                         }
-
 
                                                     }
                                                 }
                                             }
                                         } else if (action.equals("verProcesosCC")) {
-                                            String idProg = request.getParameter("id");
-                                            Programa pro = programaFacade.find(Integer.parseInt(idProg));
-                                            sesion.setAttribute("Programa", pro);
-                                            List procesos = (List) procesoFacade.findByPrograma(pro);
-                                            if (!procesos.isEmpty()) {
-                                                Iterator iter = procesos.iterator();
-                                                while (iter.hasNext()) {
-                                                    Proceso p = (Proceso) iter.next();
-                                                    if (p.getFechainicio().equals("En Configuración")) {
-                                                        sesion.setAttribute("EstadoProceso", 1);
-                                                        sesion.setAttribute("Proceso", p);
-                                                        sesion.setAttribute("Modelo", p.getModeloId());
-                                                    } else if (p.getFechacierre().equals("--")) {
-                                                        sesion.setAttribute("EstadoProceso", 2);
-                                                        sesion.setAttribute("Proceso", p);
-                                                        sesion.setAttribute("Modelo", p.getModeloId());
+                                            int id = Integer.parseInt(request.getParameter("id"));
+                                            Proceso p = procesoFacade.find(id);
+                                            sesion.setAttribute("Proceso", p);
+                                            sesion.setAttribute("Modelo", p.getModeloId());
+                                            sesion.setAttribute("Programa", p.getProgramaId());
 
-                                                        /////Comienza para saber si el modelo en cuestion tiene preguntas abiertas
-                                                        boolean tienePreguntasAbiertas = false;
-                                                        List<Pregunta> preguntasModelo = p.getModeloId().getPreguntaList();
-                                                        for (Pregunta pregunta : preguntasModelo) {
-                                                            if (pregunta.getTipo().equals("2")) {
-                                                                tienePreguntasAbiertas = true;
-                                                                break;
-                                                            }
-                                                        }
-                                                        if (tienePreguntasAbiertas) {
-                                                            sesion.setAttribute("abiertas", "true");
-                                                        } else {
-                                                            sesion.setAttribute("abiertas", "false");
-                                                        }
-                                                        /////////Termina 
+                                            if (p.getFechainicio().equals("En Configuración")) {
+                                                sesion.setAttribute("EstadoProceso", 1);
+                                            } else if (p.getFechacierre().equals("--")) {
+                                                int total = participanteFacade.countByProperty("procesoId", p);
+                                                int contestaron = participanteFacade.countPorProcesoContestados("procesoId", p);
+                                                float porcentaje = 0;
 
-
-                                                    } else {
-                                                        sesion.setAttribute("EstadoProceso", 0);
-                                                        //  session.setAttribute("Proceso", p);
-                                                        //session.setAttribute("Modelo", p.getModeloId());
-                                                    }
+                                                if (contestaron > 0) {
+                                                    porcentaje = (float) (Math.rint(((contestaron * 100) / total) * 10) / 10);
                                                 }
+                                                sesion.setAttribute("total", total);
+                                                sesion.setAttribute("contestaron", contestaron);
+                                                sesion.setAttribute("porcentaje", porcentaje);
+
+                                                sesion.setAttribute("EstadoProceso", 2);
                                             } else {
                                                 sesion.setAttribute("EstadoProceso", 0);
                                             }
+
                                             String url = "/WEB-INF/vista/comiteCentral/control/comitePrograma/index.jsp";
                                             RequestDispatcher rd = request.getRequestDispatcher(url);
                                             rd.forward(request, response);
@@ -932,8 +903,7 @@ public class formController2 extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -947,8 +917,7 @@ public class formController2 extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response

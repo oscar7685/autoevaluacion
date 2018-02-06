@@ -148,7 +148,7 @@ public class loginController extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
-        List<Muestrapersona> usuario = null;
+        Participante p = null;
         String action = (String) request.getParameter("action");
         String respuesta = "1";
         Representante r = null;
@@ -165,7 +165,7 @@ public class loginController extends HttpServlet {
             } catch (NumberFormatException e) {
             }
             if (r == null) {
-                Participante p = participanteFacade.find(un);
+                p = participanteFacade.find(un);
                 if (p != null && un.equals(pw) && p.getFechafinal()== null) {
                     session.setAttribute("tipoLogin", "Fuente");
                     session.setAttribute("participante", p);
@@ -202,8 +202,8 @@ public class loginController extends HttpServlet {
                 }
             }
             if (respuesta.equals("0")) {
-                if (usuario != null) {
-                    session.setAttribute("personaLogueada", usuario.get(0).getNombre() + " " + usuario.get(0).getApellido());
+                if (p != null) {
+                    session.setAttribute("personaLogueada", p.getNombre());
                 } else if (r != null) {
                     session.setAttribute("personaLogueada", r.getNombre() + " " + r.getApellido());
                 }

@@ -43,6 +43,8 @@ import javax.servlet.http.HttpSession;
  */
 public class ListMuestra implements Action {
 
+    ParticipanteFacade participanteFacade = lookupParticipanteFacadeBean();
+
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(SelectorListMuestra.class);
 
     @Override
@@ -50,7 +52,21 @@ public class ListMuestra implements Action {
         HttpSession sesion = request.getSession();
         Proceso proceso = (Proceso) sesion.getAttribute("Proceso");
         String url;
+
+        List<Object[]> participantes = participanteFacade.listarPersonas(proceso);
+        sesion.setAttribute("participantes", participantes);
+
         url = "/WEB-INF/vista/comitePrograma/muestra/listarMuestra.jsp";//cuando ya la muestra ha sido asignada
         return url;
+    }
+
+    private ParticipanteFacade lookupParticipanteFacadeBean() {
+        try {
+            Context c = new InitialContext();
+            return (ParticipanteFacade) c.lookup("java:global/autoevaluacion/ParticipanteFacade!com.autoeval.ejb.ParticipanteFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }

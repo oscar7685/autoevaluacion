@@ -262,7 +262,16 @@ public abstract class AbstractFacade<T> {
         q.setMaxResults(tamanio);
         return q.getResultList();
     }
-
+    
+    
+    public List<Object[]> listarPersonas(Proceso p) {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        Query q = getEntityManager().createQuery("SELECT p.idparticipante, p.nombre, r.rol, progra.nombre, p.fechafinal FROM Participante p join p.participanteHasRolList h join h.rolId r join h.programaId progra WHERE p.procesoId = :proceso", entityClass).setParameter("proceso", p);
+        return q.getResultList();
+    }
+    
+  
     public List<T> findUltimo(String id) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
@@ -325,7 +334,15 @@ public abstract class AbstractFacade<T> {
         q.setParameter("name", m);
         return ((Long) q.getSingleResult()).intValue();
     }
-
+    
+    public int countPorProcesoContestados(String property, Object m) {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        Query q = getEntityManager().createQuery("SELECT COUNT(c) FROM " + entityClass.getSimpleName() + " c WHERE c." + property + " = :name AND c.fechafinal is not null ", entityClass);
+        q.setParameter("name", m);
+        return ((Long) q.getSingleResult()).intValue();
+    }
+    
     public int countByProperty2(String property, Object m1, String property2, Object m2) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));

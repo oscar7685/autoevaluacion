@@ -27,7 +27,7 @@
                                             <c:out value="${row.programaId.facultadId.nombre}"/>
                                         </td>
                                         <td>   
-                                            <a href="#verProcesos&${row.programaId.id}">${row.programaId.nombre}</a>
+                                            <a href="#verProcesos&${row.id}">${row.programaId.nombre}</a>
                                         </td>
                                         <td>   
                                             <c:out value="${row.fechainicio}"/>
@@ -46,7 +46,7 @@
                                             <c:out value="${row.programaId.facultadId.nombre}"/>
                                         </td>
                                         <td>   
-                                            <a href="#verProcesos&${row.programaId.id}">${row.programaId.nombre}</a>
+                                            <a href="#verProcesos&${row.id}">${row.programaId.nombre}</a>
                                         </td>
                                         <td>   
                                             <c:out value="${row.fechainicio}"/>
@@ -65,7 +65,7 @@
                                             <c:out value="${row.programaId.facultadId.nombre}"/>
                                         </td>
                                         <td>   
-                                            <a href="#verProcesos&${row.programaId.id}">${row.programaId.nombre}</a>
+                                            <a href="#verProcesos&${row.id}">${row.programaId.nombre}</a>
                                         </td>
                                         <td>   
                                             <c:out value="${row.fechainicio}"/>
