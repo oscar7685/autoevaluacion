@@ -39,6 +39,20 @@ public class ParticipanteFacade extends AbstractFacade<Participante> {
         q.setParameter("rol", r.getId());
         return q.getResultList();
     }
+    
+    public int countByPerfil(Proceso p, Rol r) {
+        Query q = em.createNamedQuery("Participante.findByPerfil");
+        q.setParameter("proceso", p);
+        q.setParameter("rol", r.getId());
+        return q.getResultList().size();
+    }
+    
+    public int countTerminadosByPerfil(Proceso p, Rol r) {
+        Query q = em.createNamedQuery("Participante.findTerminadosByPerfil");
+        q.setParameter("proceso", p);
+        q.setParameter("rol", r.getId());
+        return q.getResultList().size();
+    }
 
     public List findByPerfilyPrograma(Proceso p, Rol r, Programa programa) {
         Query q = em.createNamedQuery("Participante.findByPerfilPrograma");

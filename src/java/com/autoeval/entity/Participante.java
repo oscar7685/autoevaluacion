@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Participante.findByIdparticipante", query = "SELECT p FROM Participante p WHERE p.idparticipante = :idparticipante"),
     @NamedQuery(name = "Participante.findByFechainicio", query = "SELECT p FROM Participante p WHERE p.fechainicio = :fechainicio"),
     @NamedQuery(name = "Participante.findByPerfil", query = "SELECT p FROM Participante p join p.participanteHasRolList h join h.rolId r WHERE p.procesoId = :proceso and r.id=:rol group by p"),
+    @NamedQuery(name = "Participante.findTerminadosByPerfil", query = "SELECT p FROM Participante p join p.participanteHasRolList h join h.rolId r WHERE p.procesoId = :proceso and r.id=:rol and p.fechafinal is not null group by p"),
     @NamedQuery(name = "Participante.findByPerfilPrograma", query = "SELECT p FROM Participante p join p.participanteHasRolList h join h.rolId r WHERE p.procesoId = :proceso and r.id=:rol and h.programaId=:programa group by p"),
     @NamedQuery(name = "Participante.findByFechafinal", query = "SELECT p FROM Participante p WHERE p.fechafinal = :fechafinal")})
 public class Participante implements Serializable {

@@ -3,30 +3,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <script type="text/javascript" language="JavaScript">
     $(document).ready(function() {
-        marcacion = new Date()
-        Hora = marcacion.getHours()
-        Minutos = marcacion.getMinutes()
-        Segundos = marcacion.getSeconds()
-        if (Hora <= 9)
-            Hora = "0" + Hora;
-        if (Minutos <= 9)
-            Minutos = "0" + Minutos;
-        if (Segundos <= 9)
-            Segundos = "0" + Segundos;
-        var Dia = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");
-        var Mes = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-        var Hoy = new Date();
-        var Anio = Hoy.getFullYear();
-        var Fecha = Dia[Hoy.getDay()] + " " + Hoy.getDate() + " de " + Mes[Hoy.getMonth()] + " de " + Anio + ", a las " + Hora + ":" + Minutos + ":" + Segundos;
-        $("#horaEstado").html(" " + Fecha);
-
-        if (${aux_index2 == 2}) {
-            
-        }
-        $("#actEnlaceEstado").click(function() {
-            
-        }); //fin eventoClick #actEnlaceEstado
-
         $(".printEnlace").click(function() {
             $('#conte').jqprint();
             return false;
@@ -111,13 +87,6 @@
                 <legend>
                     Estado del proceso
                 </legend>
-                <c:if test="${aux_index2 != 3}">
-                    <div class="span10" style="margin-left: 0px;">
-                        <div class="span1" style="margin-left: 0px;"><span class="label label-info span1" id="spanActualizadoEstado" style="margin-left: 0px;">Actualizado</span></div>
-                        <div class="span7" style="margin-left: 30px;"><p class="help-block" id="horaEstado"></p></div>
-                        <div class="span2" style="margin-left: 30px; text-align: right;"><a style="cursor: pointer" id="actEnlaceEstado"><i class="icon-refresh"></i> Actualizar</a></div>
-                    </div>
-                </c:if>
                 <div>
                     <p>
                         Detalle:
@@ -142,11 +111,11 @@
                 <br>
                 <p>Informes: </p>
                 <div>
-                    <a href="<%=request.getContextPath()%>/#graficasDMA" class="btn btn-warning"><i class="icon-bar-chart"></i> Graficas DMA</a>
-                    <a href="<%=request.getContextPath()%>/#informeDMA" class="btn btn-warning"><i class="icon-bar-chart"></i> Informe DMA</a>
-                    <a href="<%=request.getContextPath()%>/#informeMatrizFactores" class="btn btn-warning"><i class="icon-bar-chart"></i>Matriz de calidad por factores</a>
+                    <a href="<%=request.getContextPath()%>/#" class="btn btn-warning"><i class="icon-bar-chart"></i> Graficas DMA</a>
+                    <a href="<%=request.getContextPath()%>/#" class="btn btn-warning"><i class="icon-bar-chart"></i> Informe DMA</a>
+                    <%--<a href="<%=request.getContextPath()%>/#informeMatrizFactores" class="btn btn-warning"><i class="icon-bar-chart"></i>Matriz de calidad por factores</a>
                     <a href="<%=request.getContextPath()%>/#informeMatrizCaracteristicas" class="btn btn-warning"><i class="icon-bar-chart">  </i>Matriz de calidad por caracter&iacute;sticas</a>
-                    <!--<a  href="<%=request.getContextPath()%>/#resultadosGenerales"><i class="icon-bar-chart"></i> Resultados Generales</a>-->
+                    <a  href="<%=request.getContextPath()%>/#resultadosGenerales"><i class="icon-bar-chart"></i> Resultados Generales</a>-->
 
                     <div class="btn-group">
                         <a class="btn btn-warning" href="<%=request.getContextPath()%>/#encuestaAleatoria"><i class="icon-random"></i> Ver al azar encuesta respondida</a>
@@ -162,6 +131,7 @@
                             <li><a href="#encuestaXaleatoria&6">de un empleador</a></li>
                         </ul>
                     </div>
+                    --%>
                 </div>
                 <br>
                 <p>Estado general del proceso:</p>
@@ -174,7 +144,6 @@
                     <th>Porcentaje de personas que faltan por evaluar las encuestas</th>
                     </thead>
                     <tbody>
-
                         <tr>  
                             <td>   
                                 <c:out value="${totalMuestraX}"/>
@@ -196,7 +165,6 @@
 
                     </tbody>
                 </table><br>
-
                 <p>Estado por fuente del proceso:</p>
                 <table class="table table-striped table-bordered table-condensed">
                     <thead>
@@ -227,7 +195,7 @@
                                         0%
                                     </c:otherwise>
                                 </c:choose>
-
+                
                             </td>
                             <td>   
                                 <c:out value="${totalEst-terminadosEst}"/>

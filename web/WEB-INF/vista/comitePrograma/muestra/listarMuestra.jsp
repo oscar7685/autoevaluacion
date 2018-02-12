@@ -94,20 +94,14 @@
 
 <div class="hero-unit">
     <div class="row">
-        <div id="conte" class="span10">
+        <div id="conte" class="span12">
             <ul class="nav nav-pills" style="margin-bottom: 0px">
 
             </ul>
             <div id="listM">
                 <div id="printMuestra">
-                    <c:if test="${EstadoProceso == 2}">
-                        <div>
-                            <div style="margin-left: 0px;" class="span1"><span style="margin-left: 0px;" id="spanActualizado" class="label label-info span1">Actualizado</span></div>
-                            <div class="span9"><p id="hora" class="help-block"></p></div>
-                        </div>
-                    </c:if>
-                    <div id="listM2" class="span10" style="margin-left: 0px;">
-                        <div class="span10" style="margin-left: 0px;">
+                    <div id="listM2" class="span12" style="margin-left: 0px;">
+                        <div class="span12" style="margin-left: 0px;">
                             <div id="editM">
                                 <ul class="nav nav-tabs" id="myTab">
                                     <li class="active"><a href="#poblacionest" data-toggle="tab">Población</a></li>
@@ -122,7 +116,7 @@
                                 </div>
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="poblacionest">
-                                        <table id="tablaestudiante0" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                        <table id="tablaX" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Identificación</th>
@@ -199,4 +193,30 @@
         </div>
     </div>
 </div>                       
-
+<script type="text/javascript">
+    /* Table initialisation */
+    $(document).ready(function () {
+        var oTable = $('#tablaX').dataTable({
+            "paging": false,
+            // "sPaginationType": "bootstrap",
+            "oLanguage": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    });
+</script>

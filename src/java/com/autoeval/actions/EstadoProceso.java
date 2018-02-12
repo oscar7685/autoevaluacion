@@ -12,9 +12,12 @@ import com.autoeval.ejb.MuestraegresadoFacade;
 import com.autoeval.ejb.MuestraempleadorFacade;
 import com.autoeval.ejb.MuestraestudianteFacade;
 import com.autoeval.ejb.MuestrapersonaFacade;
+import com.autoeval.ejb.ParticipanteFacade;
+import com.autoeval.ejb.RolFacade;
 import com.autoeval.entity.Encabezado;
 import com.autoeval.entity.Muestra;
 import com.autoeval.entity.Proceso;
+import com.autoeval.entity.Rol;
 import com.autoeval.interfaz.Action;
 import java.io.IOException;
 import java.util.List;
@@ -33,74 +36,43 @@ import javax.servlet.http.HttpSession;
  */
 public class EstadoProceso implements Action {
 
-    EncabezadoFacade encabezadoFacade = lookupEncabezadoFacadeBean();
-    MuestraempleadorFacade muestraempleadorFacade = lookupMuestraempleadorFacadeBean();
-    MuestradirectorFacade muestradirectorFacade = lookupMuestradirectorFacadeBean();
-    MuestraadministrativoFacade muestraadministrativoFacade = lookupMuestraadministrativoFacadeBean();
-    MuestraegresadoFacade muestraegresadoFacade = lookupMuestraegresadoFacadeBean();
-    MuestradocenteFacade muestradocenteFacade = lookupMuestradocenteFacadeBean();
-    MuestraestudianteFacade muestraestudianteFacade = lookupMuestraestudianteFacadeBean();
-    MuestrapersonaFacade muestrapersonaFacade = lookupMuestrapersonaFacadeBean();
+    RolFacade rolFacade = lookupRolFacadeBean();
+    ParticipanteFacade participanteFacade = lookupParticipanteFacadeBean();
 
     @Override
     public String procesar(HttpServletRequest request) throws IOException, ServletException {
         HttpSession sesion = request.getSession();
         Proceso p = (Proceso) sesion.getAttribute("Proceso");
-        Muestra m = p.getMuestraList().get(0);
-        int totalMuestra = muestrapersonaFacade.countByProperty("muestraId", m);
-        int totalEst = muestraestudianteFacade.countByProperty2("muestrapersonaId.muestraId", m, "tipo", "1");
-        int totalEstEsp = muestraestudianteFacade.countByProperty2("muestrapersonaId.muestraId", m, "tipo", "7");
-        int totalEstMae = muestraestudianteFacade.countByProperty2("muestrapersonaId.muestraId", m, "tipo", "8");
-        int totalDoc = muestradocenteFacade.countByProperty2("muestrapersonaId.muestraId", m, "tipo", "2");
-        int totalDocCat = muestradocenteFacade.countByProperty2("muestrapersonaId.muestraId", m, "tipo", "11");
-        int totalEgr = muestraegresadoFacade.countByProperty2("muestrapersonaId.muestraId", m, "tipo", "4");
-        int totalEgrEsp = muestraegresadoFacade.countByProperty2("muestrapersonaId.muestraId", m, "tipo", "9");
-        int totalEgrMae = muestraegresadoFacade.countByProperty2("muestrapersonaId.muestraId", m, "tipo", "10");
-        int totalAdm = muestraadministrativoFacade.countByProperty("muestrapersonaId.muestraId", m);
-        int totalDir = muestradirectorFacade.countByProperty("muestrapersonaId.muestraId", m);
-        int totalEmp = muestraempleadorFacade.countByProperty("muestrapersonaId.muestraId", m);
 
-        List<Encabezado> encabezados = encabezadoFacade.findByList2("procesoId", p, "estado", "terminado");
+       
+        int total = participanteFacade.countByProperty("procesoId", p);
+        int contestaron = participanteFacade.countPorProcesoContestados("procesoId", p);
+        int totalEst = participanteFacade.countByPerfil(p, rolFacade.find(1));
+        int totalEstEsp = participanteFacade.countByPerfil(p, rolFacade.find(7));
+        int totalEstMae = participanteFacade.countByPerfil(p, rolFacade.find(8));
+        int totalDoc = participanteFacade.countByPerfil(p, rolFacade.find(2));
+        int totalDocCat = participanteFacade.countByPerfil(p, rolFacade.find(11));
+        int totalEgr = participanteFacade.countByPerfil(p, rolFacade.find(4));
+        int totalEgrEsp = participanteFacade.countByPerfil(p, rolFacade.find(9));
+        int totalEgrMae = participanteFacade.countByPerfil(p, rolFacade.find(10));
+        int totalAdm = participanteFacade.countByPerfil(p, rolFacade.find(3));
+        int totalDir = participanteFacade.countByPerfil(p, rolFacade.find(5));
+        int totalEmp = participanteFacade.countByPerfil(p, rolFacade.find(6));
 
-        int terminados = encabezados.size();
-        int terminadosEst = 0;
-        int terminadosDoc = 0;
-        int terminadosEgr = 0;
-        int terminadosAdm = 0;
-        int terminadosDir = 0;
-        int terminadosEmp = 0;
-        int terminadosEstEspe = 0;
-        int terminadosEstMaes = 0;
-        int terminadosEgrEspe = 0;
-        int terminadosEgrMaes = 0;
-        int terminadosDocCat = 0;
-        for (Encabezado encabezado : encabezados) {
-            if (encabezado.getFuenteId().getId() == 1) {
-                terminadosEst++;
-            } else if (encabezado.getFuenteId().getId() == 2) {
-                terminadosDoc++;
-            } else if (encabezado.getFuenteId().getId() == 3) {
-                terminadosAdm++;
-            } else if (encabezado.getFuenteId().getId() == 4) {
-                terminadosEgr++;
-            } else if (encabezado.getFuenteId().getId() == 5) {
-                terminadosDir++;
-            } else if (encabezado.getFuenteId().getId() == 6) {
-                terminadosEmp++;
-            } else if (encabezado.getFuenteId().getId() == 7) {
-                terminadosEstEspe++;
-            } else if (encabezado.getFuenteId().getId() == 8) {
-                terminadosEstMaes++;
-            } else if (encabezado.getFuenteId().getId() == 9) {
-                terminadosEgrEspe++;
-            } else if (encabezado.getFuenteId().getId() == 10) {
-                terminadosEgrMaes++;
-            } else if (encabezado.getFuenteId().getId() == 11) {
-                terminadosDocCat++;
-            }
-        }
-        sesion.setAttribute("terminadosX", terminados);
-        sesion.setAttribute("totalMuestraX", totalMuestra);
+        int terminadosEst = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(1));
+        int terminadosDoc = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(2));
+        int terminadosEgr = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(4));
+        int terminadosAdm = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(3));
+        int terminadosDir = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(5));
+        int terminadosEmp = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(6));
+        int terminadosEstEspe = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(7));
+        int terminadosEstMaes = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(8));
+        int terminadosEgrEspe = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(9));
+        int terminadosEgrMaes = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(10));
+        int terminadosDocCat = participanteFacade.countTerminadosByPerfil(p, rolFacade.find(11));
+
+        sesion.setAttribute("terminadosX", contestaron);
+        sesion.setAttribute("totalMuestraX", total);
         sesion.setAttribute("totalEst", totalEst);
         sesion.setAttribute("terminadosEst", terminadosEst);
         sesion.setAttribute("totalEstEsp", totalEstEsp);
@@ -126,83 +98,24 @@ public class EstadoProceso implements Action {
         return "/WEB-INF/vista/comitePrograma/proceso/informe/estadoProceso.jsp";
     }
 
-    private MuestrapersonaFacade lookupMuestrapersonaFacadeBean() {
+    private ParticipanteFacade lookupParticipanteFacadeBean() {
         try {
             Context c = new InitialContext();
-            return (MuestrapersonaFacade) c.lookup("java:global/autoevaluacion/MuestrapersonaFacade!com.autoeval.ejb.MuestrapersonaFacade");
+            return (ParticipanteFacade) c.lookup("java:global/autoevaluacion/ParticipanteFacade!com.autoeval.ejb.ParticipanteFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
 
-    private MuestraestudianteFacade lookupMuestraestudianteFacadeBean() {
+    private RolFacade lookupRolFacadeBean() {
         try {
             Context c = new InitialContext();
-            return (MuestraestudianteFacade) c.lookup("java:global/autoevaluacion/MuestraestudianteFacade!com.autoeval.ejb.MuestraestudianteFacade");
+            return (RolFacade) c.lookup("java:global/autoevaluacion/RolFacade!com.autoeval.ejb.RolFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
 
-    private MuestradocenteFacade lookupMuestradocenteFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (MuestradocenteFacade) c.lookup("java:global/autoevaluacion/MuestradocenteFacade!com.autoeval.ejb.MuestradocenteFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private MuestraegresadoFacade lookupMuestraegresadoFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (MuestraegresadoFacade) c.lookup("java:global/autoevaluacion/MuestraegresadoFacade!com.autoeval.ejb.MuestraegresadoFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private MuestraadministrativoFacade lookupMuestraadministrativoFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (MuestraadministrativoFacade) c.lookup("java:global/autoevaluacion/MuestraadministrativoFacade!com.autoeval.ejb.MuestraadministrativoFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private MuestradirectorFacade lookupMuestradirectorFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (MuestradirectorFacade) c.lookup("java:global/autoevaluacion/MuestradirectorFacade!com.autoeval.ejb.MuestradirectorFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private MuestraempleadorFacade lookupMuestraempleadorFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (MuestraempleadorFacade) c.lookup("java:global/autoevaluacion/MuestraempleadorFacade!com.autoeval.ejb.MuestraempleadorFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private EncabezadoFacade lookupEncabezadoFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (EncabezadoFacade) c.lookup("java:global/autoevaluacion/EncabezadoFacade!com.autoeval.ejb.EncabezadoFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
 }
