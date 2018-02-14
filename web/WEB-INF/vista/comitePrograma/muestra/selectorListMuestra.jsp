@@ -75,12 +75,11 @@
     }/*#sharefI_3:before*/
 </style>
 <script type="text/javascript">
-    $(function() {
-
-        $(".btn-group > .btn").click(function() {
+    $(function () {
+        $(".btn-group > .btn").click(function () {
             $("tr.terminadoC").hide();
             $("tr.pendienteC").hide();
-            $(".btn-group input").each(function(index) {
+            $(".btn-group input").each(function (index) {
                 if ($(this).prop("checked") && index == 0) {
                     $("tr.pendienteC").show();
                 } else if ($(this).prop("checked") && index == 1) {
@@ -106,51 +105,51 @@
         var Fecha = Dia[Hoy.getDay()] + " " + Hoy.getDate() + " de " + Mes[Hoy.getMonth()] + " de " + Anio + ", a las " + Hora + ":" + Minutos + ":" + Segundos;
         $("#hora").html(" " + Fecha);
 
-        $("#bpreparedCrearPersona").click(function() {
+        $("#bpreparedCrearPersona").click(function () {
             $.ajax({
                 type: 'POST',
                 url: "/autoevaluacion/controladorCP?action=preparedCrearEvaluador&fuente=${fuenteX}",
-                success: function(datos) {
+                success: function (datos) {
                     $("#editM").empty();
                     $("#editM").append(datos);
-                    $("#contenido").show(200, function() {
+                    $("#contenido").show(200, function () {
                         $("#dancing-dots-text").remove();
                     });
                 } //fin success
             }); //fin $.ajax    
 
         });
-        $("#bpreparedEliminarPersonas").click(function() {
+        $("#bpreparedEliminarPersonas").click(function () {
             $.ajax({
                 type: 'POST',
                 url: "/autoevaluacion/controladorCP?action=eliminarPersonas&fuente=${fuenteX}",
-                success: function() {
-                        $("#listM").empty();
-                        $.ajax({
-                            type: 'POST',
-                            url: "/autoevaluacion/controladorCP?action=selectorListMuestra",
-                            data: $("#formListarMuestra").serialize(),
-                            success: function(datos) {
-                                $(".divEvaluador").remove();
-                                $("#listM").append(datos);
-                                $("#contenido").show(200, function() {
-                                    $("#dancing-dots-text").remove();
-                                });
-                            } //fin success
-                        }); //fin $.ajax 
-                    } //fin success
+                success: function () {
+                    $("#listM").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: "/autoevaluacion/controladorCP?action=selectorListMuestra",
+                        data: $("#formListarMuestra").serialize(),
+                        success: function (datos) {
+                            $(".divEvaluador").remove();
+                            $("#listM").append(datos);
+                            $("#contenido").show(200, function () {
+                                $("#dancing-dots-text").remove();
+                            });
+                        } //fin success
+                    }); //fin $.ajax 
+                } //fin success
             }); //fin $.ajax    
 
         });
 
-        $("#bpreparedEditarMuestra").click(function() {
+        $("#bpreparedEditarMuestra").click(function () {
             $.ajax({
                 type: 'POST',
                 url: "/autoevaluacion/controladorCP?action=preparedEditarMuestra&fuente=${fuenteX}",
-                success: function(datos) {
+                success: function (datos) {
                     $("#editM").empty();
                     $("#editM").append(datos);
-                    $("#contenido").show(200, function() {
+                    $("#contenido").show(200, function () {
                         $("#dancing-dots-text").remove();
                     });
                 } //fin success
@@ -159,11 +158,11 @@
         });
 
 
-        $("#printEnlace").click(function() {
+        $("#printEnlace").click(function () {
             $('#printMuestra').printArea();
             return false;
         });
-        $("#actEnlace").click(function() {
+        $("#actEnlace").click(function () {
             marcacion = new Date()
             Hora = marcacion.getHours()
             Minutos = marcacion.getMinutes()
@@ -184,10 +183,10 @@
                 type: 'POST',
                 url: "/autoevaluacion/controladorCP?action=selectorListSemestre",
                 data: $("#formListarMuestra").serialize(),
-                success: function(datos) {
+                success: function (datos) {
                     $("#listM").empty();
                     $("#listM").append(datos);
-                    $("#contenido").show(200, function() {
+                    $("#contenido").show(200, function () {
                         $("#dancing-dots-text").remove();
                     });
                 } //fin success
@@ -216,13 +215,21 @@
     </c:if>
     <div id="listM2" class="span10" style="margin-left: 0px;">
         <div class="span10" style="margin-left: 0px;">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-danger">
+                    <input type="checkbox" autocomplete="off" checked>Pendiente
+                </label>
+                <label class="btn btn-success">
+                    <input type="checkbox" autocomplete="off" checked>Terminado
+                </label>
+            </div> 								
             <div id="editM">
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active"><a href="#poblacionest" data-toggle="tab">Población</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="poblacionest">
-                        <table id="tablaestudiante0" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="tablaY1" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Identificación</th>
@@ -233,17 +240,24 @@
                                 <c:choose>
                                     <c:when test="${fn:length(participantes)!= 0}">
                                         <c:forEach items="${participantes}" var="participante" varStatus="iter1">
-                                            <tr <c:if test="${participante.fechafinal != null}">class="terminadoC"</c:if>>
+                                            <c:choose>   
+                                                <c:when test="${participante.fechafinal != null}">
+                                                    <tr class="terminadoC">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                    <tr class="pendienteC"> 
+                                                    </c:otherwise>    
+                                                </c:choose>
                                                 <td <c:if test="${participante.fechafinal != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante.idparticipante}</td>
                                                 <td <c:if test="${participante.fechafinal != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante.nombre}</td>
-                                            </tr>
+                                                </tr>
                                         </c:forEach>
                                     </c:when>
                                 </c:choose>
                             </tbody>
                         </table>
                         <p id="total0" style="font-weight: bold">Total: ${fn:length(participantes)}</p>
-                       
+
                     </div>
                 </div>
             </div>
@@ -255,9 +269,8 @@
 <script src="js/jquery.fileupload.js"></script>
 <script src="js/jquery.fileupload-process.js"></script>
 <script src="js/jquery.fileupload-validate.js"></script>
-
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         'use strict';
 
         // Initialize the jQuery File Upload widget:
@@ -275,26 +288,26 @@
                 'option',
                 'redirect',
                 window.location.href.replace(
-                /\/[^\/]*$/,
-                '/cors/result.html?%s'
-                )
-                ).bind('fileuploaddestroy', function(e, data) {
+                        /\/[^\/]*$/,
+                        '/cors/result.html?%s'
+                        )
+                ).bind('fileuploaddestroy', function (e, data) {
             if (e.isDefaultPrevented()) {
                 return false;
             }
             var that = $(this).data('blueimp-fileupload') ||
                     $(this).data('fileupload'),
-                    removeNode = function() {
-                that._transition(data.context).done(
-                        function() {
-                            $(this).remove();
-                            that._trigger('destroyed', e, data);
-                        }
-                );
-            };
+                    removeNode = function () {
+                        that._transition(data.context).done(
+                                function () {
+                                    $(this).remove();
+                                    that._trigger('destroyed', e, data);
+                                }
+                        );
+                    };
             if (data.url) {
                 data.dataType = data.dataType || that.options.dataType;
-                $.ajax(data).done(removeNode).fail(function() {
+                $.ajax(data).done(removeNode).fail(function () {
                     that._trigger('destroyfailed', e, data);
                     removeNode();
                 });
@@ -302,7 +315,7 @@
                 removeNode();
             }
 
-        }).bind('fileuploaddone', function(e, data) {
+        }).bind('fileuploaddone', function (e, data) {
             $("#dancing-dots-text").remove();
             $('#selectListMuestra').val('--').trigger('change');
         });
