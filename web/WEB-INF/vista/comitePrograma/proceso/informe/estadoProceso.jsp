@@ -112,7 +112,7 @@
                 <p>Informes: </p>
                 <div>
                     <a href="<%=request.getContextPath()%>/#" class="btn btn-warning"><i class="icon-bar-chart"></i> Graficas DMA</a>
-                    <a href="<%=request.getContextPath()%>/#" class="btn btn-warning"><i class="icon-bar-chart"></i> Informe DMA</a>
+                    <a href="<%=request.getContextPath()%>/#informeDMA" class="btn btn-warning"><i class="icon-bar-chart"></i> Informe DMA</a>
                     <%--<a href="<%=request.getContextPath()%>/#informeMatrizFactores" class="btn btn-warning"><i class="icon-bar-chart"></i>Matriz de calidad por factores</a>
                     <a href="<%=request.getContextPath()%>/#informeMatrizCaracteristicas" class="btn btn-warning"><i class="icon-bar-chart">  </i>Matriz de calidad por caracter&iacute;sticas</a>
                     <a  href="<%=request.getContextPath()%>/#resultadosGenerales"><i class="icon-bar-chart"></i> Resultados Generales</a>-->

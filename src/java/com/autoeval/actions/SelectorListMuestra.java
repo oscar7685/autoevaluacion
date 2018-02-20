@@ -62,37 +62,37 @@ public class SelectorListMuestra implements Action {
              sesion.setAttribute("listMuestraSin", muestraestudianteFacade.findByMuestraSinEncabezado(proceso));
              sesion.setAttribute("poblacion", estudianteFacade.findByList("procesoId", proceso));*/
             if (fuente.equals("EstudianteP")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(1));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(1));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("EstudianteM")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(8));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(8));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("EstudianteE")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(7));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(7));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("ProfesorP")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(2));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(2));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("ProfesorC")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(11));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(11));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("Directivo")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(5));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(5));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("Administrativo")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(3));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(3));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("EgresadoP")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(4));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(4));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("EgresadoE")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(9));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(9));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("EgresadoM")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(10));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(10));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("Empleador")) {
-                List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(6));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(6));
                 sesion.setAttribute("participantes", participantes);
             }
 

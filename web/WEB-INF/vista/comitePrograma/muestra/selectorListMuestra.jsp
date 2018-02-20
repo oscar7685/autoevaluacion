@@ -234,6 +234,7 @@
                                 <tr>
                                     <th>Identificación</th>
                                     <th>Nombre</th>
+                                    <th>Programa</th>
                                 </tr>
                             </thead>
                             <tbody id="bodytablaestudiante">
@@ -241,15 +242,16 @@
                                     <c:when test="${fn:length(participantes)!= 0}">
                                         <c:forEach items="${participantes}" var="participante" varStatus="iter1">
                                             <c:choose>   
-                                                <c:when test="${participante.fechafinal != null}">
+                                                <c:when test="${participante[3] != null}">
                                                     <tr class="terminadoC">
                                                     </c:when>
                                                     <c:otherwise>
                                                     <tr class="pendienteC"> 
                                                     </c:otherwise>    
                                                 </c:choose>
-                                                <td <c:if test="${participante.fechafinal != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante.idparticipante}</td>
-                                                <td <c:if test="${participante.fechafinal != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante.nombre}</td>
+                                                <td <c:if test="${participante[3] != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante[0]}</td>
+                                                <td <c:if test="${participante[3] != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante[1]}</td>
+                                                <td <c:if test="${participante[3] != null}">style="background-color: #DFF0D8; color: #468847;"</c:if>>${participante[2]}</td>
                                                 </tr>
                                         </c:forEach>
                                     </c:when>

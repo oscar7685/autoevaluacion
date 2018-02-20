@@ -38,7 +38,7 @@ public class FilterSession implements Filter {
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("FilterSession:DoBeforeProcessing");
+           // LOGGER.debug("FilterSession:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -66,7 +66,7 @@ public class FilterSession implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("FilterSession:DoAfterProcessing");
+           // LOGGER.debug("FilterSession:DoAfterProcessing");
         }
 
 	// Write code here to process the request and/or response after
@@ -101,7 +101,7 @@ public class FilterSession implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("FilterSession:doFilter()");
+            //LOGGER.debug("FilterSession:doFilter()");
         }
 
         doBeforeProcessing(request, response);
@@ -170,7 +170,7 @@ public class FilterSession implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("FilterSession:Initializing filter");
+               // LOGGER.debug("FilterSession:Initializing filter");
             }
 
         }

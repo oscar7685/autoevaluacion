@@ -45,7 +45,7 @@ public class ListMuestra implements Action {
 
     ParticipanteFacade participanteFacade = lookupParticipanteFacadeBean();
 
-    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(SelectorListMuestra.class);
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ListMuestra.class);
 
     @Override
     public String procesar(HttpServletRequest request) throws IOException, ServletException {
