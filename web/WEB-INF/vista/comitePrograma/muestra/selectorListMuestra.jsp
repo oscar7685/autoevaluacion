@@ -345,12 +345,12 @@
                 buttons: {
                     copyTitle: 'Copiar'
                 },
-                "lengthMenu": "Display _MENU_ records per page",
-                "zeroRecords": "Nothing found - sorry",
+                "lengthMenu": "Mostrando _MENU_ registros por pagina",
+                "zeroRecords": "No hay registros",
                 "info": "Mostrando page _PAGE_ of _PAGES_",
-                "infoEmpty": "No records available",
+                "infoEmpty": "No hay registros disponibles",
                 "sInfo": "Mostrando registros del _START_ al _END_ de _TOTAL_",
-                "infoFiltered": "(filtered from _MAX_ total records)",
+                "infoFiltered": "(filtrados de un total de _MAX_ registros)",
                 sSearch: "Buscar:"
             }
         });

@@ -82,7 +82,7 @@
             if (a == 0) {
                 $("#listM").empty();
                 $("#help1").html('<div class="alert alert-info" role="alert"><strong>Atenci&oacute;n</strong> Seleccione una fuente para ver la muestra asignada a la misma.</div>');
-            } else if (a == 1 || a == 2 || a == 3) {
+            } else if (a == 1 || a == 2 || a == 3|| a == 4 || a == 5) {
                 $("#divPrograma").show();
                 $("#help1").html('Seleccione un programa para filtrar los resultados.');
                 $("#listM").empty();

@@ -59,15 +59,18 @@ public class SelectorListSemestre implements Action {
         if (programa.equals("todos")) {
             if (fuente.equals("EstudianteP")) {
                 List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(1));
-                //List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(1));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("EstudianteM")) {
-                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(1));
-                //List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(8));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(8));
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("EstudianteE")) {
-                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(1));
-                //List<Participante> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(7));
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(7));
+                sesion.setAttribute("participantes", participantes);
+            } else if (fuente.equals("ProfesorP")) {
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(2));
+                sesion.setAttribute("participantes", participantes);
+            } else if (fuente.equals("ProfesorC")) {
+                List<Object[]> participantes = participanteFacade.findByPerfil(proceso, rolFacade.find(11));
                 sesion.setAttribute("participantes", participantes);
             }
         } else {
@@ -79,6 +82,12 @@ public class SelectorListSemestre implements Action {
                 sesion.setAttribute("participantes", participantes);
             } else if (fuente.equals("EstudianteE")) {
                 List<Object[]> participantes = participanteFacade.findByPerfilyPrograma(proceso, rolFacade.find(7), programaFacade.find(Integer.parseInt(programa)));
+                sesion.setAttribute("participantes", participantes);
+            }else if (fuente.equals("ProfesorP")) {
+                List<Object[]> participantes = participanteFacade.findByPerfilyPrograma(proceso, rolFacade.find(2), programaFacade.find(Integer.parseInt(programa)));
+                sesion.setAttribute("participantes", participantes);
+            }else if (fuente.equals("ProfesorC")) {
+                List<Object[]> participantes = participanteFacade.findByPerfilyPrograma(proceso, rolFacade.find(11), programaFacade.find(Integer.parseInt(programa)));
                 sesion.setAttribute("participantes", participantes);
             }
 

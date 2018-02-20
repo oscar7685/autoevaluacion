@@ -45,6 +45,8 @@ public class ListarProgramasSelect implements Action {
             sesion.setAttribute("programasSelect", maestrias);
         }else if(tipoEstudiantes.equals("3")){//estudiantes de especializacion
             sesion.setAttribute("programasSelect", programaFacade.findByList("tipoformacion", "Especializacion"));
+        }else{
+            sesion.setAttribute("programasSelect", programaFacade.findAll());
         }
         
         return "/WEB-INF/vista/comitePrograma/muestra/programas.jsp";
